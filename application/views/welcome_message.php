@@ -413,42 +413,107 @@
 
                 <div id="search" class="w3-container w3-white w3-padding-16 myLink">
                     <h3>Search Diagnosis</h3>
-                    <form class="form form-horizontal">
-                        <div class="form-group">
+                    <div class="search_result">
+                        
+                    </div>
+                    <form class="form form-horizontal" id="search_form">
+
+                        <div class="form-group" id="dynamic_search_field">
                             <label class="control-label col-sm-2" for="symptom">Symptom:</label>
-                            <div class="col-sm-10">
-
-                                <input type="text" class="form-control" id="symptom_search" placeholder="Enter symptom to search">
-
+                            <div class="col-sm-10" style="margin-bottom:20px;">
+                                <input type="text" class="form-control" id="symptom_search" name="symptom_search[]" placeholder="Enter symptom to search">
                             </div>
                         </div>
+
+
                         <div class="form-group"> 
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search-plus w3-margin-right"></i>Add Search</button>
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search w3-margin-right"></i>Search</button>
+                                <button type="submit" class="btn btn-default" id="add_search"><i class="fa fa-search-plus w3-margin-right"></i>Add Search</button>
+                                <button type="submit" class="btn btn-default" id="search_button"><i class="fa fa-search w3-margin-right"></i>Search</button>
                             </div>
                         </div>
                     </form>
                     <?php
-                    
                     ?>
                 </div>
                 <script>
-                  var srvRqst = $.ajax({
-                      url: 'http://localhost/cbr/index.php/welcome/searchArea',
-                      data: {},
-                      type: 'post',
-                      datatype: 'json',
-                      
-                  });
-                  srvRqst.done(function(response){
-                      var dataSource = $.parseJSON(response);
-                      $("#symptom_search").autocomplete({
-                        source: dataSource
+                    //Auto suggest for inputs
+                    var srvRqst = $.ajax({
+                        url: 'http://localhost/cbr/index.php/welcome/searchArea',
+                        data: {},
+                        type: 'post',
+                        datatype: 'json'
+
                     });
-                      
-                  });
-                    
+                    srvRqst.done(function (response) {
+                        var dataSource = $.parseJSON(response);
+                        $("#symptom_search").autocomplete({
+                            source: dataSource
+                        });
+                    });
+
+
+                    //Add dynamic fields
+                    $(document).ready(function () {
+                        var srvRqst = $.ajax({
+                            url: 'http://localhost/cbr/index.php/welcome/searchArea',
+                            data: {},
+                            type: 'post',
+                            datatype: 'json'
+
+                        });
+
+                        var max_fields = 15;
+                        var wrapper = $("#dynamic_search_field");
+                        var add_button = $("#add_search");
+
+                        var intial = 1;
+                        $(add_button).click(function (e) { //on add input button click
+                            e.preventDefault();
+                            if (intial < max_fields) { //max input box allowed
+                                intial++; //text box increment
+                                $(wrapper).append(
+                                        '<div>\n\
+                                             \n\<label class="control-label col-sm-2" for="symptom">Symptom:</label>\n\
+                                        \n\
+                                            <div class="col-sm-10">\n\
+                                                <input type="text" name="symptom_search[]" class="form-control ui-autocomplete-input" placeholder="Enter symptom to search" id="symptomsearch" autocomplete="off" />\n\
+                                            </div>\n\
+                                        \n\<button id="remove" class="btn btn-danger remove-me" type="button" style="margin-top:10px; margin-bottom:10px; margin-left:18.3%;">-</button>\n\
+                                        \n\ </div>'); //add input box
+
+                            }
+                            srvRqst.done(function (response) {
+                                var dataSource = $.parseJSON(response);
+                                $(wrapper).find('input[type=text]:last').autocomplete({
+                                    source: dataSource
+                                });
+                            });
+                        });
+                        $(wrapper).on("click", "#remove", function (e) { //user click on remove text
+                            e.preventDefault();
+                            $(this).parent('div').remove();
+                            intial--;
+                        })
+                        srvRqst.done(function (response) {
+                            var dataSource = $.parseJSON(response);
+                            $("input[name^='symptom_search']").autocomplete({
+                                source: dataSource
+                            });
+                        });
+
+
+                    });
+
+                    $(document).ready(function () {
+                        $('form#search_form').on('submit', function (form) {
+                            form.preventDefault();
+                            $.post('index.php/welcome/search_result', $('form#search_form').serialize(), function (data) {
+                                $('div.search_result').html(data);
+                            });
+                        });
+                    });
+
                 </script>
             </div> 
         </header>

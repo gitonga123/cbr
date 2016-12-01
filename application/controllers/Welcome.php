@@ -23,15 +23,26 @@ class Welcome extends CI_Controller {
 
         $this->load->view('welcome_message', $data);
     }
-    public function searchArea(){
+
+    public function searchArea() {
         $symptom_search = $this->case_Model->symptom_for_search();
         //print_r($symptom_search);
         $symptoms = array();
-        foreach ($symptom_search as $key => $value){
+        foreach ($symptom_search as $key => $value) {
             $symptoms[] = $value->symptom_name;
         }
-       echo json_encode($symptoms);
+        echo json_encode($symptoms);
     }
+    
+    public function search_result(){
+        $data_received = $this->input->post('symptom_search');
+        $received = "Data Send successfully";
+        foreach($data_received as $key => $value){
+                echo $value. "<br />";
+        }
+       // echo "<div class='alert alert-danger'> {$received} </div>";
+    }
+    
     public function list_symptom() {
 
         $datas = $this->case_Model->get_symptom();
