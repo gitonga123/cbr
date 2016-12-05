@@ -71,6 +71,12 @@ class Case_Model extends CI_Model {
         return $query->result();
     }
 
+    public function search_result() {
+        $this->db->select('disease_name, symptom_name');
+        $query = $this->db->get('disease_case');
+        return $query->result();
+    }
+
     public function get_by_id($id) {
         $query = $this->db->get_where('disease', array('disease_id' => $id));
         return $query->row_array();

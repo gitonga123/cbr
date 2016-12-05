@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
 
         $data['disease'] = $this->case_Model->get_all_disease();
         $data['symptom'] = $this->case_Model->get_all_symptoms();
-        $data['records'] = $this->case_Model->symptom_for_search();
+        // $data['records'] = $this->case_Model->symptom_for_search();
         $data['symptom2'] = $this->list_symptom();
         $data['disease2'] = $this->list_disease();
 
@@ -33,16 +33,56 @@ class Welcome extends CI_Controller {
         }
         echo json_encode($symptoms);
     }
-    
-    public function search_result(){
+
+    public function search_result() {
+        $data_received = array();
+        $data_results = array();
+        //$received_db = array();
+
         $data_received = $this->input->post('symptom_search');
-        $received = "Data Send successfully";
-        foreach($data_received as $key => $value){
-                echo $value. "<br />";
+        $received_db = $this->case_Model->search_result();
+
+        $json_data = json_encode($received_db);
+        $vararray = json_decode($json_data, true);
+        if (count($data_received) > 1) {
+            $data = array();
+            
+//            for ($i = 0; $i < count($data_received); $i++) {
+//                $data = $this->search_return($vararray, 'symptom_name', $data_received[$i]);
+//                print_r($data);
+//            }
+        } else {
+            $data_results = $this->search_return($vararray, 'symptom_name', $data_received[0]);
         }
-       // echo "<div class='alert alert-danger'> {$received} </div>";
+        
+        echo '<table class="table table-hover">';
+        echo "<thead><tr><th colspan='2' class='alert alert-danger'>Likely Dieases: Disease Found = ". count($data_results)."</th></tr>"
+                . "<tr><th>No.</th><th>Disease Name</th></tr></thead><tbody>";
+        
+        $index = 0;
+        foreach ($data_results as $key) {
+            $index += 1;
+            echo "<tr><td>".$index . ". </td><td>" . $key['disease_name'] . "</td></tr>";
+        }
+        echo "</tbody></table>";
     }
-    
+
+    public function search_return($array, $key, $value) {
+        $results = array();
+
+        if (is_array($array)) {
+            if (isset($array[$key]) && $array[$key] == $value) {
+                $results[] = $array;
+            }
+
+            foreach ($array as $subarray) {
+                $results = array_merge($results, $this->search_return($subarray, $key, $value));
+            }
+        }
+
+        return $results;
+    }
+
     public function list_symptom() {
 
         $datas = $this->case_Model->get_symptom();
