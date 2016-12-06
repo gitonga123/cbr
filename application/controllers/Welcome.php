@@ -6,7 +6,7 @@ class Welcome extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model("case_Model");
+        $this->load->model(array("case_Model","user_model"));
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
     }
@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
 
         $data['disease'] = $this->case_Model->get_all_disease();
         $data['symptom'] = $this->case_Model->get_all_symptoms();
-        // $data['records'] = $this->case_Model->symptom_for_search();
+        $data['users'] = $this->all_users();
         $data['symptom2'] = $this->list_symptom();
         $data['disease2'] = $this->list_disease();
 
@@ -63,12 +63,12 @@ class Welcome extends CI_Controller {
 
             $multiple_data = $this->multi_symptom_search($data_results, $vararray, $data_received);
             $result_count = array_count_values($multiple_data);
-            echo '<thead><tr><th>Diseases Name</th></tr><tbody>';
-            foreach ($multiple_data as $key) {
-
-                echo "<tr><td>" . $key . "</td></tr>";
-            }
-            echo "</tbody></table>";
+//            echo '<thead><tr><th>Diseases Name</th></tr><tbody>';
+//            foreach ($multiple_data as $key) {
+//
+//                echo "<tr><td>" . $key . "</td></tr>";
+//            }
+//            echo "</tbody></table>";
             echo "<table class='table table-hover'><thead><tr><th>Disease Name</th><th>Symptom Frequency Appearance:</th></tr><tbody>";
             foreach ($result_count as $value => $kyes) {
                 echo "<tr><td>" . $value . "</td><td>" . $kyes . "</td><tr>";
@@ -255,6 +255,12 @@ class Welcome extends CI_Controller {
 
         //$this->load->view('diseaseID',$data);
         echo json_encode(['SYMPTOMS' => $symptoms]);
+    }
+    
+    public function all_users() {
+        $users = array();
+        $users = $this->user_model->get_all_users();
+        return $users;
     }
 
 }
