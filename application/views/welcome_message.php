@@ -12,18 +12,18 @@
         } else if (act === "delete_symptom") {
 
             var r = confirm("Do you really want to edit the Symptom?");
-        } else if(act === "delete_disease"){
+        } else if (act === "delete_disease") {
 
             var r = confirm("Do you really want to delete the Disease");
-        }else if(){
+        } else if (act === "edit_user") {
             var r = confirm("Do you really want to edit the user?");
-        }else{
+        } else {
             var r = confirm("Do yo really want to delete the user?");
         }
 
         if (r === true) {
 
-            window.location = "<?php echo base_url(); ?>index.php/welcome/" + act + "/" + gotoid;
+            window.location = "index.php/welcome/" + act + "/" + gotoid;
         }
 
     }
@@ -39,7 +39,7 @@
         <!-- Header -->
         <header class="w3-display-container w3-content w3-hide-medium" style="max-width:2000px">
             <img class="w3-image" src="assets/images/BG.png" alt="London" width="1500" height="700">
-            <div class="w3-display-middle" style="width:75%; height: 90%">
+            <div class="w3-display-middle" style="width:90%; height: 90%">
                 <ul class="w3-navbar w3-black">
                     <li><a href="javascript:void(0)" class="tablink" onclick="openLink(event, 'Home');"><i class="fa fa-home w3-margin-right"></i>Home</a></li>
                     <li><a href="javascript:void(0)" class="tablink" onclick="openLink(event, 'User');"><i class="fa fa-user w3-margin-right"></i>User Profile</a></li>
@@ -90,12 +90,107 @@
                             </tr>
                         <?php } ?>
                         <tr>
-                            <td colspan="7" align="right"> <button class="btn btn-primary" type="submit">Insert New User</button></td>
+                            <td colspan="7" align="right"> <button class="btn btn-warning" type="submit" id="new_user">Insert New User</button></td>
                         </tr>		
                     </table>
                 </div>
+                <div class="modal fade" id="myModal3" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <h4 class="modal-title">Add New User</h4>
+                                <div class="user_error">
 
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" action="/cbr/welcome/new_user" method="POST" id="add_new_user">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="first_name">First Name:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="first_name" required="required" />
+                                        </div>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="surname">surname:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="surname" required="required">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="email">Email:</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" name="email">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="username">username:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="username" placeholder="choose a username">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label class="control-label col-sm-2" for="password">Password:</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" name="password" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-sm-2" for="password2">Confirm Password:</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" name="password2"/> 
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-2" for="mobile">Phone Number:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="mobile">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label class="control-label col-sm-2" for="address">Physical Address:</label>
+                                        <div class="col-sm-10">
+                                            <textarea type="text" class="form-control" rows="5" name="address"></textarea> 
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <input type="submit" name="submit" value="New User" class="btn btn-primary active">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#new_user").click(function () {
+                            $("#myModal3").modal({backdrop: false});
+                        });
+                        
+                        $('form#add_new_user').on('submit', function (form) {
+                            form.preventDefault();
+                            $.post('index.php/welcome/new_user', $('form#add_new_user').serialize(), function (data) {
+                                $('div.user_error').html(data);
+                            });
+                        });
+                    });
+                </script>
                 <div id="Cases" class="w3-container w3-white w3-padding-16 myLink">
                     <ul class="nav nav-tabs">
                         <li class="active"><a data-toggle="tab" href="#case"><i class="fa fa-suitcase w3-margin-right"></i>Cases</a></li>

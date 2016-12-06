@@ -264,11 +264,64 @@ class Welcome extends CI_Controller {
     }
 
     public function edit_user() {
-        
+        $id = $this->uri->segment(3);
+        $data['user'] = $this->user_model->get_by_id($id);
+        $this->load->view('edit_user', $data);
     }
 
-    public function delete_user() {
-        
+    public function delete_user($id) {
+        $this->user_model->delete_user($id);
+    }
+
+    public function update() {
+        $data['first_name'] = $this->input->post('first_name');
+        $data['surname'] = $this->input->post('surname');
+        $data['email'] = $this->input->post('email');
+        $data['mobile_number'] = $this->input->post('mobile');
+        $data['physical_address'] = $this->input->post('address');
+        $data['password'] = $this->input->post('password');
+        $data['user_name'] = $this->input->post('username');
+
+        $update = $this->user_model->update_user($data, $_POST['id']);
+        if ($update) {
+            echo "<div class='alert alert-info'><strong></strong></div>";
+        } else {
+            echo 'Nothing';
+            //$this->edit_user();
+        }
+    }
+
+    public function new_user() {
+        $data['first_name'] = $this->input->post('first_name');
+        $data['surname'] = $this->input->post('surname');
+        $data['user_name'] = $this->input->post('username');
+        $data['email'] = $this->input->post('email');
+        $data['mobile_number'] = $this->input->post('mobile');
+        $data['physical_address'] = $this->input->post('address');
+        $data['password'] = $this->input->post('password');
+        $datas['password2'] = $this->input->post('password2');
+        $this->form_validation->set_rules('first_name', 'First Name', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('mobile', 'Mobile Number', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('address', 'Physical Address', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('password2', 'Password Confirmation', 'required');
+        if ($this->form_validation->run() == TRUE) {
+            if ($data['password'] == $datas['password2']) {
+                $insert = $this->user_model->new_user($data);
+                if ($insert) {
+                    echo "<div class='alert alert-success'><strong> Account Created Successfully</strong></div>";
+                } else {
+                    echo "Please check all the fields are correctly filled";
+                }
+            } else {
+                echo "Password Did not match";
+            }
+        } else {
+            echo "<div class='alert alert-warning'> <strong>" . validation_errors(). "</strong> ";
+                
+        }
     }
 
 }

@@ -15,12 +15,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <link rel="stylesheet" type="text/css" href="assets/css/style.css"></link>  
                 <link rel="stylesheet" href="assets/css/jquery-ui.min.css"></link>
                 <link rel="stylesheet" href="assets/css/jquery-ui.theme.min.css"></link>
-<!--                <link rel="stylesheet" type="text/css" href="assets/css/w3.css"></link>
-                <link rel="stylesheet" type="text/css" href="assets/css/css?family.css"></link>
-                <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"></link>-->
-                <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"></link>
+                <link rel="stylesheet" type="text/css" href="assets/css/w3.css"></link>
+                <link rel="stylesheet" type="text/css" href="assets/css/family.css"></link>
+                <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css"></link>
+<!--                <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"></link>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"></link>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"></link>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css"></link>-->
                 <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.min.css"></link>
                 <script type="text/javascript" src='assets/js/jquery-1.12.3.js'></script>
                 <script type= "text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
