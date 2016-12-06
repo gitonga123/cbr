@@ -12,9 +12,13 @@
         } else if (act === "delete_symptom") {
 
             var r = confirm("Do you really want to edit the Symptom?");
-        } else {
+        } else if(act === "delete_disease"){
 
             var r = confirm("Do you really want to delete the Disease");
+        }else if(){
+            var r = confirm("Do you really want to edit the user?");
+        }else{
+            var r = confirm("Do yo really want to delete the user?");
         }
 
         if (r === true) {
@@ -86,8 +90,7 @@
                             </tr>
                         <?php } ?>
                         <tr>
-
-                            <td colspan="7" align="right"> <a href="<?php echo base_url(); ?>index.php/user/add_form">Insert New User</a></td>
+                            <td colspan="7" align="right"> <button class="btn btn-primary" type="submit">Insert New User</button></td>
                         </tr>		
                     </table>
                 </div>

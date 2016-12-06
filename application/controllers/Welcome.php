@@ -6,7 +6,7 @@ class Welcome extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model(array("case_Model","user_model"));
+        $this->load->model(array("case_Model", "user_model"));
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
     }
@@ -256,11 +256,19 @@ class Welcome extends CI_Controller {
         //$this->load->view('diseaseID',$data);
         echo json_encode(['SYMPTOMS' => $symptoms]);
     }
-    
+
     public function all_users() {
         $users = array();
         $users = $this->user_model->get_all_users();
         return $users;
+    }
+
+    public function edit_user() {
+        
+    }
+
+    public function delete_user() {
+        
     }
 
 }
