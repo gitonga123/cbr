@@ -431,6 +431,7 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-default" id="add_search"><i class="fa fa-search-plus w3-margin-right"></i>Add Search</button>
                                 <button type="submit" class="btn btn-default" id="search_button"><i class="fa fa-search w3-margin-right"></i>Search</button>
+                                <button type="submit" class="btn btn-danger" id="remove_added_fields">Clear Fields</button>
                             </div>
                         </div>
                     </form>
@@ -495,7 +496,8 @@
                             e.preventDefault();
                             $(this).parent('div').remove();
                             intial--;
-                        })
+                        });
+                       
                         srvRqst.done(function (response) {
                             var dataSource = $.parseJSON(response);
                             $("input[name^='symptom_search']").autocomplete({
@@ -505,7 +507,7 @@
 
 
                     });
-
+                    
                     $(document).ready(function () {
                         $('form#search_form').on('submit', function (form) {
                             form.preventDefault();

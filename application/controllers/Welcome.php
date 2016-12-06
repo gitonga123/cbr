@@ -37,34 +37,58 @@ class Welcome extends CI_Controller {
     public function search_result() {
         $data_received = array();
         $data_results = array();
-        //$received_db = array();
+
+
+
+        $config = array(
+            array(
+                'field' => 'symptom_search',
+                'label' => 'symptom Search',
+                'rules' => 'required'
+            )
+        );
+        $this->form_validation->set_rules($config);
 
         $data_received = $this->input->post('symptom_search');
         $received_db = $this->case_Model->search_result();
 
         $json_data = json_encode($received_db);
         $vararray = json_decode($json_data, true);
+        $data_results = $this->search_return($vararray, 'symptom_name', $data_received[0]);
+
         if (count($data_received) > 1) {
-            $data = array();
-            
-//            for ($i = 0; $i < count($data_received); $i++) {
-//                $data = $this->search_return($vararray, 'symptom_name', $data_received[$i]);
-//                print_r($data);
-//            }
+            $multiple_data = array();
+            $result_count = array();
+            echo '<table class="table table-hover">';
+
+            $multiple_data = $this->multi_symptom_search($data_results, $vararray, $data_received);
+            $result_count = array_count_values($multiple_data);
+            echo '<thead><tr><th>Diseases Name</th></tr><tbody>';
+            foreach ($multiple_data as $key) {
+
+                echo "<tr><td>" . $key . "</td></tr>";
+            }
+            echo "</tbody></table>";
+            echo "<table class='table table-hover'><thead><tr><th>Disease Name</th><th>Symptom Frequency Appearance:</th></tr><tbody>";
+            foreach ($result_count as $value => $kyes) {
+                echo "<tr><td>" . $value . "</td><td>" . $kyes . "</td><tr>";
+            }
+
+            echo "</tbody></table>";
+            print_r($result_count);
         } else {
-            $data_results = $this->search_return($vararray, 'symptom_name', $data_received[0]);
+
+            echo '<table class="table table-hover">';
+            echo "<thead><tr><th colspan='2' class='alert alert-danger'>Likely Dieases: Disease Found = " . count($data_results) . "</th></tr>"
+            . "<tr><th>No.</th><th>Disease Name</th></tr></thead><tbody>";
+
+            $index = 0;
+            foreach ($data_results as $key) {
+                $index += 1;
+                echo "<tr><td>" . $index . ". </td><td>" . $key['disease_name'] . "</td></tr>";
+            }
+            echo "</tbody></table>";
         }
-        
-        echo '<table class="table table-hover">';
-        echo "<thead><tr><th colspan='2' class='alert alert-danger'>Likely Dieases: Disease Found = ". count($data_results)."</th></tr>"
-                . "<tr><th>No.</th><th>Disease Name</th></tr></thead><tbody>";
-        
-        $index = 0;
-        foreach ($data_results as $key) {
-            $index += 1;
-            echo "<tr><td>".$index . ". </td><td>" . $key['disease_name'] . "</td></tr>";
-        }
-        echo "</tbody></table>";
     }
 
     public function search_return($array, $key, $value) {
@@ -81,6 +105,29 @@ class Welcome extends CI_Controller {
         }
 
         return $results;
+    }
+
+    public function multi_symptom_search($array1, $array2, $symptoms) {
+        $result = array();
+        $disease = array();
+
+
+        if (is_array($array1) && is_array($array2) && is_array($symptoms)) {
+            $size = count($symptoms);
+            foreach ($array1 as $key) {
+                $result = $this->search_return($array2, 'disease_name', $key['disease_name']);
+                foreach ($result as $keys) {
+                    for ($i = 0; $i < $size; $i++) {
+                        if ($keys["symptom_name"] == $symptoms[$i]) {
+                            array_push($disease, $keys['disease_name']);
+                        }
+                    }
+                }
+            }
+        } else {
+            $disease[] = "Symptoms Can not be identified by the system";
+        }
+        return $disease;
     }
 
     public function list_symptom() {
