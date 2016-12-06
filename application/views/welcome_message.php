@@ -64,10 +64,32 @@
                 </div>
 
                 <div id="User" class="w3-container w3-white w3-padding-16 myLink">
-                    <h3>User Profile</h3>
-    <!--                <p>Book a hotel with us and get the best fares and promotions.</p>
-                    <p>We know hotels - we know comfort.</p>
-                    <p><button class="w3-btn w3-dark-grey">Search Hotels</button></p>-->
+                    <h3>List of All Users</h3>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Mobile</th>
+                            <th scope="col" colspan="2">Action</th>
+                        </tr>
+                        <?php foreach ($users as $details) { ?>
+                            <tr>
+                                <td><?php echo $details->user_id ?></td>
+                                <td><?php echo $details->user_name ?></td>
+                                <td><?php echo $details->email ?></td>
+                                <td><?php echo $details->physical_address ?></td>
+                                <td><?php echo $details->mobile_number ?></td>
+                                <td width="40" align="left"><a href="#" onClick="show_confirm('edit_user',<?php echo $details->user_id; ?>)">Edit</a></td>
+                                <td width="40" align="left" ><a href="#" onClick="show_confirm('delete_user',<?php echo $details->user_id; ?>)">Delete </a></td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+
+                            <td colspan="7" align="right"> <a href="<?php echo base_url(); ?>index.php/user/add_form">Insert New User</a></td>
+                        </tr>		
+                    </table>
                 </div>
 
 
@@ -412,10 +434,10 @@
                 </div>
 
                 <div id="search" class="w3-container w3-white w3-padding-16 myLink">
-                    
+
                     <h3>Search Diagnosis</h3>
                     <div class="search_result">
-                        
+
                     </div>
                     <form class="form form-horizontal" id="search_form">
 
@@ -497,7 +519,7 @@
                             $(this).parent('div').remove();
                             intial--;
                         });
-                       
+
                         srvRqst.done(function (response) {
                             var dataSource = $.parseJSON(response);
                             $("input[name^='symptom_search']").autocomplete({
@@ -507,7 +529,7 @@
 
 
                     });
-                    
+
                     $(document).ready(function () {
                         $('form#search_form').on('submit', function (form) {
                             form.preventDefault();
