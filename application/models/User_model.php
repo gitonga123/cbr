@@ -34,4 +34,22 @@ class User_model extends CI_Model {
         return $this->db->delete('users');
     }
 
+    public function validate($data) {
+        extract($data);
+        $this->db->where('user_name',$username);
+        $this->db->where('password',$password);
+        $query = $this->db->get('users');
+        
+        if($query->num_rows() == 1){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+    
+    public function get_specific_user($username){
+        $query = $this->db->get_where('users', array('user_name' => $username));
+        return $query->row_array();
+    }
+
 }

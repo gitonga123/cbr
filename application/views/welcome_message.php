@@ -32,7 +32,7 @@
     <div >
         <ul class="w3-navbar w3-white w3-border-bottom w3-xlarge">
             <li><a href="#" class="w3-text-blue w3-hover-blue-gray"><b><i class="w3-margin-right"><img src="assets/images/logo11.png"></i>CBR DIAGNOSIS</b></a></li>
-            <li class="w3-right"><a href="#" class="w3-hover-red w3-text-grey"><i class="fa fa-close">Log Out</i></a></li>
+            <li class="w3-right"><a href="#" class="w3-hover-red w3-text-grey"><i class="fa fa-sign-out">Log Out</i></a></li>
         </ul>
 
 

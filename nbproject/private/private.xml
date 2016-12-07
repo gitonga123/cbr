@@ -7,7 +7,9 @@
             <file>file:/var/www/html/cbr/application/views/welcome_message.php</file>
             <file>file:/var/www/html/cbr/application/models/Case_Model.php</file>
             <file>file:/var/www/html/cbr/application/controllers/Welcome.php</file>
+            <file>file:/var/www/html/cbr/application/models/User_model.php</file>
             <file>file:/var/www/html/cbr/application/views/header.php</file>
+            <file>file:/var/www/html/cbr/application/views/edit_user.php</file>
         </group>
     </open-files>
 </project-private>

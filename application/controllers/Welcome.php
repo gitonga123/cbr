@@ -298,32 +298,29 @@ class Welcome extends CI_Controller {
         $data['email'] = $this->input->post('email');
         $data['mobile_number'] = $this->input->post('mobile');
         $data['physical_address'] = $this->input->post('address');
-        $data['password'] = $this->input->post('password');
-        $datas['password2'] = $this->input->post('password2');
+        $data['password'] = md5($this->input->post('password'));
+        $datas['password2'] = md5($this->input->post('password2'));
+        print_r($data);
+
         $this->form_validation->set_rules('first_name', 'First Name', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
         $this->form_validation->set_rules('mobile', 'Mobile Number', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.user_name]');
         $this->form_validation->set_rules('address', 'Physical Address', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('password2', 'Password Confirmation', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|max_length[15]');
+        $this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
         if ($this->form_validation->run() == TRUE) {
-            if ($data['password'] == $datas['password2']) {
-                $insert = $this->user_model->new_user($data);
-                if ($insert) {
-                    echo "<div class='alert alert-success'><strong> Account Created Successfully</strong></div>";
-                } else {
-                    echo "Please check all the fields are correctly filled";
-                }
+
+            $insert = $this->user_model->new_user($data);
+            if ($insert) {
+                echo "<div class='alert alert-success'><strong> Account Created Successfully</strong></div>";
             } else {
-                echo "Password Did not match";
+                echo "Please check all the fields are correctly filled";
             }
         } else {
-            echo "<div class='alert alert-warning'> <strong>" . validation_errors(). "</strong> ";
-                
+            echo "<div class='alert alert-warning'> <strong>" . validation_errors() . "</strong> ";
         }
     }
-
 }
 ?>
     

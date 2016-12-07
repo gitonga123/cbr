@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://www.developphp.com/video/PHP/User-Profile-Photo-File-Upload-HTML-Form-PHP-Parse-Script-MySQL -->
+<html lang="en" class="gr__developphp_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="author" content="Adam Khoury">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="Keywords" content="PHP, User Profile Photo File Upload HTML Form PHP Parse Script MySQL, Social Network Development, video, tutorial, training, learn, guide, code, script, program, application, software, development, web, site, school, education, class, website, online, course, free, adam khoury">
+<meta name="Description" content="Video: User Profile Photo File Upload HTML Form PHP Parse Script MySQL. This tutorial resides in the PHP video index under the Social Network Development section. If you find this lesson useful, we have many more exercises that are sure to please you.">
+<title>PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL</title>
+<link rel="icon" href="https://www.developphp.com/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/main3.css">
+<link rel="stylesheet" href="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/ash.css">
+<script src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/ca-pub-2379004690904460.js"></script><script src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/ca-pub-2379004690904460.js"></script><script src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/main1.js"></script>
+<script src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/ash.js"></script>
+<style>
+.ad_leaderboard { padding:30px 0px; text-align:center; }
+#ad_160x600 { float:right; width:160px; height:600px; margin:0px 0px 0px 25px; }
+.ad_mobile { display:none; clear:left; background:#FFF; width:auto; padding:0px 0px 20px 0px; text-align:center; }
+
+.banner_on_tuts { padding:0px 0px 30px 0px; text-align:center; }
+.banner_on_tuts_mobile { display:none; height:auto; text-align:center; }
+
+#social{ position:fixed; top:230px; left:0px; width:50px; height:auto; padding:12px 0px; background:#EFEFEF; border-radius: 0px 7px 7px 0px; border:1px solid #AAA; text-align:center; transition: width 0.2s linear 0s; }
+#social:hover{ width:80px; }
+#social > button{ display:block; background-color:transparent; background-image:url(/style/share_icon.png); width:36px; height:36px; border:none; cursor:pointer; margin:4px auto; opacity:0.6; transition: opacity 0.2s linear 0s; }
+#social > button:hover{ opacity:1; }
+#social > button:nth-child(1){background-position:0px;}
+#social > button:nth-child(2){background-position:-36px;}
+#social > button:nth-child(3){background-position:-72px;}
+#social > button:nth-child(4){background-position:-252px;}
+
+#contentbody{ float:left; width:78%; padding:0px; margin-bottom:200px; }
+#contentbody > #contentbodychild{ min-height:700px; border:1px solid #666; border-left:none; background:#FFF; padding:20px 25px 80px 80px; }
+#contentbody > #contentbodychild > h1{ }
+#contentbody > #contentbodychild > h2{ }
+
+#rel_tuts{ float:left; width:22%; }
+#rel_tuts > div{ padding:0px 0px 50px 0px; }
+#rel_tuts > div > h3 { margin:0px; padding:10px 0px 10px 15px; }
+#rel_tuts > div > h3 > a { text-decoration:none; }
+#rel_tuts > div > h4 { margin:0px; padding:10px 0px 10px 25px; color:#333; }
+#rel_tuts > div > h4 > a { text-decoration:none; }
+#rel_tuts > div > a { display:block; height:24px; overflow:hidden; margin:0px; padding:3px 0px 3px 25px; line-height:2.0em; text-decoration:none; font-size:15px; }
+#rel_tuts > div > a:hover { text-decoration:underline; }
+#rel_tuts > div > a:before { content:url(/style/ul_doc.png) " "; }
+#rel_tuts > div > span { display:block; position:relative; right:1px; height:24px; overflow:hidden; margin:0px; padding:0px 20px 6px 25px; line-height:2.0em; background:#FFF; color:#666; font-size:15px; border:1px solid #777; border-left:none; border-right:none;}
+#rel_tuts > div > span:before { content:url(/style/ul_doc.png) " "; }
+
+#db_body > div {clear:left; white-space:-moz-pre-wrap; white-space:-o-pre-wrap; white-space:pre-wrap; word-wrap:break-word; line-height:1.5em; margin:0px 0px 0px 0px;}
+#db_body > div > p > a{ text-decoration: underline; }
+#db_body > div > p{ margin:0px; padding:0px; }
+#db_body > div > h1,h3,h4{ margin:0px 0px 7px 0px; font-weight:bold; }
+#db_body > div > h2{ margin:0px 0px 0px 0px; padding-top:30px; font-size:21px; }
+#db_body > div > ul,ol > li{ line-height:0.7em; }
+#db_body > div > small{ }
+#db_body > div > small > a{ text-decoration:underline; }
+#db_body > div > small > b{ color: #999; }
+#db_body > div > small > em{ color:#F60; font-weight:bold; }
+#db_body > div > fieldset{ background:#222; border:none; border-radius:4px; font-size:0.95em; font-family:"Courier New", Courier, monospace; color: #CCC; font-style: normal; padding-left:20px; }
+#db_body > div > fieldset > legend{background:#222; border-bottom:none; border-radius:4px 4px 0px 0px; font-size:0.65em; letter-spacing:1px; color: #FAA901; padding:0px 10px; height:20px; font-weight:bold; font-family:Arial, Helvetica, sans-serif; font-style:normal; }
+#db_body > div > hr{ background:#CCC; height:1px; border: none;}
+.docsniplink{display:inline-block; float:left; margin-left:10px; background:#FFF linear-gradient(#EAF4FF, #D2E9FF); border:#95CAFF 1px solid; border-top:none; font-size:13px; padding:0px 10px; color: #06C; text-decoration:none;}
+.docsniplink:hover{border: #06C 1px solid; border-top:none; text-decoration:none;  }
+
+div#videobox{ margin: 0px auto 0px auto; width:700px; height:394px; z-index:5;}
+div#videobox > iframe{ border:none; width:700px; height:394px; }
+img#vid_thumb{width:100px;}
+@media screen and (max-device-width: 1100px) {
+.ad_leaderboard { display:none; }
+#ad_160x600 {display:none;}
+.ad_mobile { display:block; }
+.banner1 { display:none; }
+.banner1mobile { display:block; }
+#social{ display:none; }
+#contentbody{ font-size:12px; float:none; width:auto; margin-right:0px; padding:0px; overflow-x:hidden; }
+#contentbody > #contentbodychild{ min-height:500px; border:none; padding:20px; box-shadow:none; }
+#contentbody > #contentbodychild > h1{ font-weight:bold; margin:0px 0px 0px 0px; font-size:14px; }
+#contentbody > #contentbodychild > h2{ font-weight:bold; margin:0px 0px 0px 0px; font-size:12px; }
+#rel_tuts{ float:none; width:auto; background:#FFF; }
+#rel_tuts > div{ min-height:50px; padding-bottom:30px; font-size:12px; }
+#rel_tuts > div > h3 { background:#FFF; margin:40px 0px 0px 0px; padding:40px 0px 8px 10px; border-top:3px solid #DDD; }
+#rel_tuts > div > h4 { background:#FFF; font-size:13px; }
+#rel_tuts > div > a { font-size:12px; }
+#rel_tuts > div > span { font-size:12px; }
+#db_body > div {white-space:-moz-pre-wrap; white-space:-o-pre-wrap; white-space:pre-wrap; word-wrap:break-word; line-height:1.5em; margin:0px 0px;}
+#db_body > div > fieldset{ background:#222; border:none; border-radius:4px; font-size:9px; font-family:"Courier New", Courier, monospace; color: #CCC; font-style: normal; padding-left:10px; }
+#db_body > div > h2{ margin:0px 0px 0px 0px; font-weight:bold; border-top:#CCC 1px solid; padding-top:10px; font-size:12px; }
+#db_body > div > h1{ font-weight:bold; font-size:12px; }
+.docsniplink{display:inline-block; float:left; margin-left:10px; background:#FFF linear-gradient(#EAF4FF, #D2E9FF); border:#95CAFF 1px solid; border-top:none; font-size:10px; padding:0px 10px; color: #06C; text-decoration:none;}
+code{ font-size:8px; }
+
+div#videobox{ margin: 10px auto 10px auto; width:300px; height:169px;}
+div#videobox > iframe{ border:none; width:300px; height:169px; }
+}
+</style>
+</head>
+<body onload="ash()" data-gr-c-s-loaded="true">
+<div id="mast">
+    <div id="host_sol_top"><a href="https://www.developphp.com/hosting.php"><b>☁</b> Hosting Solutions</a></div>
+    <div id="mobile_top">
+      <img src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/helmet_logo_vector.png" alt="mobile_logo" onclick="window.location=&#39;https://www.developphp.com&#39;;">
+      <a href="https://www.developphp.com/Table-of-Contents">Table of Contents</a>
+    </div>
+    <div id="mastsealborder"><div id="mastseal" onclick="window.location=&#39;https://www.developphp.com/&#39;;"><img id="sealfront" alt="seal_front" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/mastseal.png"><img id="sealback" alt="seal_back" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/mastsealback.png"></div></div>
+    <div id="searchbox"><form id="searchform" action="https://www.developphp.com/search.php" method="get"><input type="hidden" name="f" id="f" value="vid"><input placeholder="search by keywords" type="text" name="q" id="q" value="" required=""><button type="submit" id="searchbtn">🔎</button></form></div>
+    <div id="mastmenu">
+      <button id="btn1" onclick="toggle(&#39;menu1&#39;,this)" style="background: linear-gradient(rgb(255, 230, 183), rgb(255, 189, 89)) rgb(255, 255, 255);">HTML▾</button>
+      <div id="menu1" style="left: 235px; height: 0px;">
+        <a href="https://www.developphp.com/lib/HTML#Fundamentals">Fundamentals</a>
+        <a href="https://www.developphp.com/lib/HTML#Elements">Elements</a>
+        <a href="https://www.developphp.com/video/HTML">Video Tutorials</a>
+      </div>
+      <button id="btn2" onclick="toggle(&#39;menu2&#39;,this)" style="background: linear-gradient(rgb(255, 230, 183), rgb(255, 189, 89)) rgb(255, 255, 255);">CSS▾</button>
+      <div id="menu2" style="left: 306px; height: 0px;">
+        <a href="https://www.developphp.com/lib/CSS#Fundamentals">Fundamentals</a>
+        <a href="https://www.developphp.com/lib/CSS#Value-Reference">Value Reference</a>
+        <a href="https://www.developphp.com/lib/CSS#Selectors">Selectors</a>
+        <a href="https://www.developphp.com/lib/CSS#At-Rules">At Rules</a>
+        <a href="https://www.developphp.com/lib/CSS#Modules">Modules</a>
+        <a href="https://www.developphp.com/lib/CSS#Properties">Properties</a>
+        <a href="https://www.developphp.com/video/CSS">Video Tutorials</a>
+      </div>
+      <button id="btn3" onclick="toggle(&#39;menu3&#39;,this)" style="background: linear-gradient(rgb(255, 230, 183), rgb(255, 189, 89)) rgb(255, 255, 255);">JavaScript▾</button>
+      <div id="menu3" style="left: 366px; height: 0px;">
+        <a href="https://www.developphp.com/lib/JavaScript#Fundamentals">Fundamentals</a>
+        <a href="https://www.developphp.com/lib/JavaScript#Objects">Objects</a>
+        <a href="https://www.developphp.com/lib/JavaScript#Events">Events</a>
+        <a href="https://www.developphp.com/lib/JavaScript#Operators">Operators</a>
+        <a href="https://www.developphp.com/lib/JavaScript#Statements">Statements</a>
+        <a href="https://www.developphp.com/lib/JavaScript#Properties">Properties</a>
+        <a href="https://www.developphp.com/lib/JavaScript#Methods">Methods</a>
+        <a href="https://www.developphp.com/video/JavaScript">Video Tutorials</a>
+      </div>
+      <button id="btn4" onclick="toggle(&#39;menu4&#39;,this)" style="background: linear-gradient(rgb(255, 230, 183), rgb(255, 189, 89)) rgb(255, 255, 255);">PHP▾</button>
+      <div id="menu4" style="left: 463px; height: 0px;">
+        <a href="https://www.developphp.com/lib/PHP#Fundamentals">Fundamentals</a>
+        <a href="https://www.developphp.com/lib/PHP#Functions">Functions</a>
+        <a href="https://www.developphp.com/video/PHP">Video Tutorials</a>
+      </div>
+      <button id="btn5" onclick="toggle(&#39;menu5&#39;,this)" style="background: linear-gradient(rgb(255, 230, 183), rgb(255, 189, 89)) rgb(255, 255, 255);">Flash▾</button>
+      <div id="menu5" style="left: 523px; height: 0px;">
+        <a href="https://www.developphp.com/video/Flash">Video Tutorials</a>
+      </div>
+      <button id="btn6" onclick="toggle(&#39;menu6&#39;,this)" style="background: linear-gradient(rgb(255, 230, 183), rgb(255, 189, 89)) rgb(255, 255, 255);">Graphics▾</button>
+      <div id="menu6" style="left: 590px; height: 0px;">
+        <a href="https://www.developphp.com/video/Graphics">Video Tutorials</a>
+      </div>
+    </div>
+</div><div id="content">
+  <div id="contentbody">
+    <div id="contentbodychild">
+      <div class="ad_mobile">
+        <script async="" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/adsbygoogle.js"></script>
+<!-- DevPHP Responsive 1 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2379004690904460" data-ad-slot="5070281336" data-ad-format="auto" data-adsbygoogle-status="done"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>      </div>
+      <!-- <div class="ad_leaderboard">
+              </div> -->
+      <div id="videobox">
+        <iframe src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/NJZBl5KXdXc.html" allowfullscreen=""></iframe>
+      </div>
+            <h2>User Profile Photo File Upload HTML Form PHP Parse Script MySQL</h2>
+      <div id="db_body">
+	    <aside id="ad_160x600">
+          <script async="" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/adsbygoogle.js"></script>
+<!-- WOW 160x600 Skyscraper -->
+<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-2379004690904460" data-ad-slot="8215767516" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/saved_resource.html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>        </aside>
+		<div>Learn to allow your users to change their profile photo and begin building your file upload applications. This lesson will help you get comfortable with the PHP and MySQL side of creating image upload applications and offer you a simple front end form. You can use it on your website as a temporary way to achieve this goal until you enhance it or change it more to your liking.
+
+<b>main.js</b>
+<code><b>function</b> _(x){
+	return document.getElementById(x);
+}
+<b>function</b> toggleElement(x){
+	var x = _(x);
+	if(x.style.display == <span class="code-str">'block'</span>){
+		x.style.display = <span class="code-str">'none'</span>;
+	}else{
+		x.style.display = <span class="code-str">'block'</span>;
+	}
+}</code>
+
+<b>image_resize.php</b>
+<code><span class="code-phptags">&lt;?php</span>
+<b>function</b> img_resize($target, $newcopy, $w, $h, $ext) {
+    list($w_orig, $h_orig) = getimagesize($target);
+    $scale_ratio = $w_orig / $h_orig;
+    if (($w / $h) &gt; $scale_ratio) {
+           $w = $h * $scale_ratio;
+    } else {
+           $h = $w / $scale_ratio;
+    }
+    $img = <span class="code-str">""</span>;
+    $ext = strtolower($ext);
+    if ($ext == <span class="code-str">"gif"</span>){ 
+      $img = imagecreatefromgif($target);
+    } else if($ext ==<span class="code-str">"png"</span>){ 
+      $img = imagecreatefrompng($target);
+    } else { 
+      $img = imagecreatefromjpeg($target);
+    }
+    $tci = imagecreatetruecolor($w, $h);
+    <span class="code-comment">// imagecopyresampled(dst_img, src_img, dst_x, dst_y, src_x, src_y, dst_w, dst_h, src_w, src_h)<br></span>    imagecopyresampled($tci, $img, 0, 0, 0, 0, $w, $h, $w_orig, $h_orig);
+    imagejpeg($tci, $newcopy, 84);
+}
+<span class="code-phptags">?&gt;</span></code>
+
+<b>photo_system.php</b>
+<code><span class="code-phptags">&lt;?php</span>
+include_once(<span class="code-str">"../php_includes/check_login_status.php"</span>);
+if($user_ok != true || $log_username == <span class="code-str">""</span>) {
+	exit();
+}
+<span class="code-phptags">?&gt;</span><span class="code-phptags">&lt;?php</span> 
+if (isset($_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"name"</span>]) &amp;&amp; $_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"tmp_name"</span>] != <span class="code-str">""</span>){
+	$fileName = $_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"name"</span>];
+    $fileTmpLoc = $_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"tmp_name"</span>];
+	$fileType = $_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"type"</span>];
+	$fileSize = $_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"size"</span>];
+	$fileErrorMsg = $_FILES[<span class="code-str">"avatar"</span>][<span class="code-str">"error"</span>];
+	$kaboom = explode(<span class="code-str">"."</span>, $fileName);
+	$fileExt = end($kaboom);
+	list($width, $height) = getimagesize($fileTmpLoc);
+	if($width &lt; 10 || $height &lt; 10){
+		header(<span class="code-str">"location: ../message.php?msg=ERROR: That image has no dimensions"</span>);
+        exit();	
+	}
+	$db_file_name = rand(100000000000,999999999999).<span class="code-str">"."</span>.$fileExt;
+	if($fileSize &gt; 1048576) {
+		header(<span class="code-str">"location: ../message.php?msg=ERROR: Your image file was larger than 1mb"</span>);
+		exit();	
+	} else if (!preg_match(<span class="code-str">"/\.(gif|jpg|png)$/i"</span>, $fileName) ) {
+		header(<span class="code-str">"location: ../message.php?msg=ERROR: Your image file was not jpg, gif or png type"</span>);
+		exit();
+	} else if ($fileErrorMsg == 1) {
+		header(<span class="code-str">"location: ../message.php?msg=ERROR: An unknown error occurred"</span>);
+		exit();
+	}
+	$sql = <span class="code-str">"SELECT avatar FROM users WHERE username=<span class="code-str">'$log_username'</span> LIMIT 1"</span>;
+	$query = mysqli_query($db_conx, $sql);
+	$row = mysqli_fetch_row($query);
+	$avatar = $row[0];
+	if($avatar != <span class="code-str">""</span>){
+		$picurl = <span class="code-str">"../user/$log_username/$avatar"</span>; 
+	    if (file_exists($picurl)) { unlink($picurl); }
+	}
+	$moveResult = move_uploaded_file($fileTmpLoc, <span class="code-str">"../user/$log_username/$db_file_name"</span>);
+	if ($moveResult != true) {
+		header(<span class="code-str">"location: ../message.php?msg=ERROR: File upload failed"</span>);
+		exit();
+	}
+	include_once(<span class="code-str">"../php_includes/image_resize.php"</span>);
+	$target_file = <span class="code-str">"../user/$log_username/$db_file_name"</span>;
+	$resized_file = <span class="code-str">"../user/$log_username/$db_file_name"</span>;
+	$wmax = 200;
+	$hmax = 300;
+	img_resize($target_file, $resized_file, $wmax, $hmax, $fileExt);
+	$sql = <span class="code-str">"UPDATE users SET avatar=<span class="code-str">'$db_file_name'</span> WHERE username=<span class="code-str">'$log_username'</span> LIMIT 1"</span>;
+	$query = mysqli_query($db_conx, $sql);
+	mysqli_close($db_conx);
+	header(<span class="code-str">"location: ../user.php?u=$log_username"</span>);
+	exit();
+}
+<span class="code-phptags">?&gt;</span></code>
+
+<b>user.php</b>
+<code><span class="code-phptags">&lt;?php</span>
+include_once(<span class="code-str">"php_includes/check_login_status.php"</span>);
+<span class="code-comment">// Initialize any variables that the page might echo<br></span>$u = <span class="code-str">""</span>;
+$sex = <span class="code-str">"Male"</span>;
+$userlevel = <span class="code-str">""</span>;
+$profile_pic = <span class="code-str">""</span>;
+$profile_pic_btn = <span class="code-str">""</span>;
+$avatar_form = <span class="code-str">""</span>;
+$country = <span class="code-str">""</span>;
+$joindate = <span class="code-str">""</span>;
+$lastsession = <span class="code-str">""</span>;
+<span class="code-comment">// Make sure the _GET username is set, and sanitize it<br></span>if(isset($_GET[<span class="code-str">"u"</span>])){
+	$u = preg_replace(<span class="code-str">'#[^a-z0-9]#i'</span>, <span class="code-str">''</span>, $_GET[<span class="code-str">'u'</span>]);
+} else {
+    header(<span class="code-str">"location: http://www.webintersect.com"</span>);
+    exit();	
+}
+<span class="code-comment">// Select the member from the users table<br></span>$sql = <span class="code-str">"SELECT * FROM users WHERE username=<span class="code-str">'$u'</span> AND activated=<span class="code-str">'1'</span> LIMIT 1"</span>;
+$user_query = mysqli_query($db_conx, $sql);
+<span class="code-comment">// Now make sure that user exists in the table<br></span>$numrows = mysqli_num_rows($user_query);
+if($numrows &lt; 1){
+	echo <span class="code-str">"That user does not exist or is not yet activated, press back"</span>;
+    exit();	
+}
+<span class="code-comment">// Check to see if the viewer is the account owner<br></span>$isOwner = <span class="code-str">"no"</span>;
+if($u == $log_username &amp;&amp; $user_ok == true){
+	$isOwner = <span class="code-str">"yes"</span>;
+	$profile_pic_btn = <span class="code-str">'<span class="code-elem">&lt;a href=<span class="code-str">"#"</span> onclick=<span class="code-str">"return false;"</span> onmousedown=<span class="code-str">"toggleElement(\'</span>avatar_form\<span class="code-str">')"</span>&gt;</span>Toggle Avatar Form<span class="code-elem">&lt;/a&gt;</span>'</span>;
+	$avatar_form  = <span class="code-str">'<span class="code-elem">&lt;form id=<span class="code-str">"avatar_form"</span> enctype=<span class="code-str">"multipart/form-data"</span> method=<span class="code-str">"post"</span> action=<span class="code-str">"php_parsers/photo_system.php"</span>&gt;</span>'</span>;
+	$avatar_form .=   <span class="code-str">'<span class="code-elem">&lt;h4&gt;</span>Change your avatar<span class="code-elem">&lt;/h4&gt;</span>'</span>;
+	$avatar_form .=   <span class="code-str">'<span class="code-elem">&lt;input type=<span class="code-str">"file"</span> name=<span class="code-str">"avatar"</span> required&gt;</span>'</span>;
+	$avatar_form .=   <span class="code-str">'<span class="code-elem">&lt;p&gt;</span><span class="code-elem">&lt;input type=<span class="code-str">"submit"</span> value=<span class="code-str">"Upload"</span>&gt;</span><span class="code-elem">&lt;/p&gt;</span>'</span>;
+	$avatar_form .= <span class="code-str">'<span class="code-elem">&lt;/form&gt;</span>'</span>;
+}
+<span class="code-comment">// Fetch the user row from the query above<br></span>while ($row = mysqli_fetch_array($user_query, MYSQLI_ASSOC)) {
+	$profile_id = $row[<span class="code-str">"id"</span>];
+	$gender = $row[<span class="code-str">"gender"</span>];
+	$country = $row[<span class="code-str">"country"</span>];
+	$userlevel = $row[<span class="code-str">"userlevel"</span>];
+	$avatar = $row[<span class="code-str">"avatar"</span>];
+	$signup = $row[<span class="code-str">"signup"</span>];
+	$lastlogin = $row[<span class="code-str">"lastlogin"</span>];
+	$joindate = strftime(<span class="code-str">"%b %d, %Y"</span>, strtotime($signup));
+	$lastsession = strftime(<span class="code-str">"%b %d, %Y"</span>, strtotime($lastlogin));
+}
+if($gender == <span class="code-str">"f"</span>){
+	$sex = <span class="code-str">"Female"</span>;
+}
+$profile_pic = <span class="code-str">'<span class="code-elem">&lt;img src=<span class="code-str">"user/'</span>.$u.<span class="code-str">'/'</span>.$avatar.<span class="code-str">'"</span> alt=<span class="code-str">"'</span>.$u.<span class="code-str">'"</span>&gt;</span>'</span>;
+if($avatar == NULL){
+	$profile_pic = <span class="code-str">'<span class="code-elem">&lt;img src=<span class="code-str">"images/avatardefault.jpg"</span> alt=<span class="code-str">"'</span>.$user1.<span class="code-str">'"</span>&gt;</span>'</span>;
+}
+<span class="code-phptags">?&gt;</span><span class="code-phptags">&lt;?php</span>
+$isFriend = false;
+$ownerBlockViewer = false;
+$viewerBlockOwner = false;
+if($u != $log_username &amp;&amp; $user_ok == true){
+	$friend_check = <span class="code-str">"SELECT id FROM friends WHERE user1=<span class="code-str">'$log_username'</span> AND user2=<span class="code-str">'$u'</span> AND accepted=<span class="code-str">'1'</span> OR user1=<span class="code-str">'$u'</span> AND user2=<span class="code-str">'$log_username'</span> AND accepted=<span class="code-str">'1'</span> LIMIT 1"</span>;
+	if(mysqli_num_rows(mysqli_query($db_conx, $friend_check)) &gt; 0){
+        $isFriend = true;
+    }
+	$block_check1 = <span class="code-str">"SELECT id FROM blockedusers WHERE blocker=<span class="code-str">'$u'</span> AND blockee=<span class="code-str">'$log_username'</span> LIMIT 1"</span>;
+	if(mysqli_num_rows(mysqli_query($db_conx, $block_check1)) &gt; 0){
+        $ownerBlockViewer = true;
+    }
+	$block_check2 = <span class="code-str">"SELECT id FROM blockedusers WHERE blocker=<span class="code-str">'$log_username'</span> AND blockee=<span class="code-str">'$u'</span> LIMIT 1"</span>;
+	if(mysqli_num_rows(mysqli_query($db_conx, $block_check2)) &gt; 0){
+        $viewerBlockOwner = true;
+    }
+}
+<span class="code-phptags">?&gt;</span><span class="code-phptags">&lt;?php</span> 
+$friend_button = <span class="code-str">'<span class="code-elem">&lt;button disabled&gt;</span>Request As Friend<span class="code-elem">&lt;/button&gt;</span>'</span>;
+$block_button = <span class="code-str">'<span class="code-elem">&lt;button disabled&gt;</span>Block User<span class="code-elem">&lt;/button&gt;</span>'</span>;
+<span class="code-comment">// LOGIC FOR FRIEND BUTTON<br></span>if($isFriend == true){
+	$friend_button = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"friendToggle(\'</span>unfriend\<span class="code-str">',\'</span><span class="code-str">'.$u.'</span>\<span class="code-str">',\'</span>friendBtn\<span class="code-str">')"</span>&gt;</span>Unfriend<span class="code-elem">&lt;/button&gt;</span>'</span>;
+} else if($user_ok == true &amp;&amp; $u != $log_username &amp;&amp; $ownerBlockViewer == false){
+	$friend_button = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"friendToggle(\'</span>friend\<span class="code-str">',\'</span><span class="code-str">'.$u.'</span>\<span class="code-str">',\'</span>friendBtn\<span class="code-str">')"</span>&gt;</span>Request As Friend<span class="code-elem">&lt;/button&gt;</span>'</span>;
+}
+<span class="code-comment">// LOGIC FOR BLOCK BUTTON<br></span>if($viewerBlockOwner == true){
+	$block_button = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"blockToggle(\'</span>unblock\<span class="code-str">',\'</span><span class="code-str">'.$u.'</span>\<span class="code-str">',\'</span>blockBtn\<span class="code-str">')"</span>&gt;</span>Unblock User<span class="code-elem">&lt;/button&gt;</span>'</span>;
+} else if($user_ok == true &amp;&amp; $u != $log_username){
+	$block_button = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"blockToggle(\'</span>block\<span class="code-str">',\'</span><span class="code-str">'.$u.'</span>\<span class="code-str">',\'</span>blockBtn\<span class="code-str">')"</span>&gt;</span>Block User<span class="code-elem">&lt;/button&gt;</span>'</span>;
+}
+<span class="code-phptags">?&gt;</span><span class="code-phptags">&lt;?php</span>
+$friendsHTML = <span class="code-str">''</span>;
+$friends_view_all_link = <span class="code-str">''</span>;
+$sql = <span class="code-str">"SELECT COUNT(id) FROM friends WHERE user1=<span class="code-str">'$u'</span> AND accepted=<span class="code-str">'1'</span> OR user2=<span class="code-str">'$u'</span> AND accepted=<span class="code-str">'1'</span>"</span>;
+$query = mysqli_query($db_conx, $sql);
+$query_count = mysqli_fetch_row($query);
+$friend_count = $query_count[0];
+if($friend_count &lt; 1){
+	$friendsHTML = $u.<span class="code-str">" has no friends yet"</span>;
+} else {
+	$max = 18;
+	$all_friends = array();
+	$sql = <span class="code-str">"SELECT user1 FROM friends WHERE user2=<span class="code-str">'$u'</span> AND accepted=<span class="code-str">'1'</span> ORDER BY RAND() LIMIT $max"</span>;
+	$query = mysqli_query($db_conx, $sql);
+	while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+		array_push($all_friends, $row[<span class="code-str">"user1"</span>]);
+	}
+	$sql = <span class="code-str">"SELECT user2 FROM friends WHERE user1=<span class="code-str">'$u'</span> AND accepted=<span class="code-str">'1'</span> ORDER BY RAND() LIMIT $max"</span>;
+	$query = mysqli_query($db_conx, $sql);
+	while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+		array_push($all_friends, $row[<span class="code-str">"user2"</span>]);
+	}
+	$friendArrayCount = count($all_friends);
+	if($friendArrayCount &gt; $max){
+		array_splice($all_friends, $max);
+	}
+	if($friend_count &gt; $max){
+		$friends_view_all_link = <span class="code-str">'<span class="code-elem">&lt;a href=<span class="code-str">"view_friends.php?u='</span>.$u.<span class="code-str">'"</span>&gt;</span>view all<span class="code-elem">&lt;/a&gt;</span>'</span>;
+	}
+	$orLogic = <span class="code-str">''</span>;
+	foreach($all_friends as $key =&gt; $user){
+			$orLogic .= <span class="code-str">"username=<span class="code-str">'$user'</span> OR "</span>;
+	}
+	$orLogic = chop($orLogic, <span class="code-str">"OR "</span>);
+	$sql = <span class="code-str">"SELECT username, avatar FROM users WHERE $orLogic"</span>;
+	$query = mysqli_query($db_conx, $sql);
+	while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+		$friend_username = $row[<span class="code-str">"username"</span>];
+		$friend_avatar = $row[<span class="code-str">"avatar"</span>];
+		if($friend_avatar != <span class="code-str">""</span>){
+			$friend_pic = <span class="code-str">'user/'</span>.$friend_username.<span class="code-str">'/'</span>.$friend_avatar.<span class="code-str">''</span>;
+		} else {
+			$friend_pic = <span class="code-str">'images/avatardefault.jpg'</span>;
+		}
+		$friendsHTML .= <span class="code-str">'<span class="code-elem">&lt;a href=<span class="code-str">"user.php?u='</span>.$friend_username.<span class="code-str">'"</span>&gt;</span><span class="code-elem">&lt;img class=<span class="code-str">"friendpics"</span> src=<span class="code-str">"'</span>.$friend_pic.<span class="code-str">'"</span> alt=<span class="code-str">"'</span>.$friend_username.<span class="code-str">'"</span> title=<span class="code-str">"'</span>.$friend_username.<span class="code-str">'"</span>&gt;</span><span class="code-elem">&lt;/a&gt;</span>'</span>;
+	}
+}
+<span class="code-phptags">?&gt;</span>
+<span class="code-elem">&lt;!DOCTYPE html&gt;</span>
+<span class="code-elem">&lt;html&gt;</span>
+<span class="code-elem">&lt;head&gt;</span>
+<span class="code-elem">&lt;meta charset=<span class="code-str">"UTF-8"</span>&gt;</span>
+<span class="code-elem">&lt;title&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/title&gt;</span>
+<span class="code-elem">&lt;link rel=<span class="code-str">"icon"</span> href=<span class="code-str">"favicon.ico"</span> type=<span class="code-str">"image/x-icon"</span>&gt;</span>
+<span class="code-elem">&lt;link rel=<span class="code-str">"stylesheet"</span> href=<span class="code-str">"style/style.css"</span>&gt;</span>
+<span class="code-elem">&lt;style type=<span class="code-str">"text/css"</span>&gt;</span>
+div#profile_pic_box{float:right; border:#999 2px solid; width:200px; height:200px; margin:20px 30px 0px 0px; overflow-y:hidden;}
+div#profile_pic_box &gt; img{z-index:2000; width:200px;}
+div#profile_pic_box &gt; a {
+	display: none;
+	position:absolute; 
+	margin:140px 0px 0px 120px;
+	z-index:4000;
+	background:#D8F08E;
+	border:#81A332 1px solid;
+	border-radius:3px;
+	padding:5px;
+	font-size:12px;
+	text-decoration:none;
+	color:#60750B;
+}
+div#profile_pic_box &gt; form{
+	display:none;
+	position:absolute; 
+	z-index:3000;
+	padding:10px;
+	opacity:.8;
+	background:#F0FEC2;
+	width:180px;
+	height:180px;
+}
+div#profile_pic_box:hover a {
+    display: block;
+}
+img.friendpics{border:#000 1px solid; width:40px; height:40px; margin:2px;}
+<span class="code-elem"><span class="code-styletags">&lt;/style&gt;</span></span>
+<span class="code-elem">&lt;script src=<span class="code-str">"js/main.js"</span>&gt;</span><span class="code-elem">&lt;/script&gt;</span>
+<span class="code-elem">&lt;script src=<span class="code-str">"js/ajax.js"</span>&gt;</span><span class="code-elem">&lt;/script&gt;</span>
+<span class="code-elem">&lt;script type=<span class="code-str">"text/javascript"</span>&gt;</span>
+<b>function</b> friendToggle(type,user,elem){
+	var conf = confirm(<span class="code-str">"Press OK to confirm the <span class="code-str">'"</span>+type+<span class="code-str">"'</span> action for user <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span>."</span>);
+	if(conf != true){
+		return false;
+	}
+	_(elem).innerHTML = <span class="code-str">'please wait ...'</span>;
+	var ajax = ajaxObj(<span class="code-str">"POST"</span>, <span class="code-str">"php_parsers/friend_system.php"</span>);
+	ajax.onreadystatechange = <b>function</b>() {
+		if(ajaxReturn(ajax) == true) {
+			if(ajax.responseText == <span class="code-str">"friend_request_sent"</span>){
+				_(elem).innerHTML = <span class="code-str">'OK Friend Request Sent'</span>;
+			} else if(ajax.responseText == <span class="code-str">"unfriend_ok"</span>){
+				_(elem).innerHTML = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"friendToggle(\'</span>friend\<span class="code-str">',\'</span><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span>\<span class="code-str">',\'</span>friendBtn\<span class="code-str">')"</span>&gt;Request As Friend<span class="code-elem">&lt;/button&gt;</span>'</span>;
+			} else {
+				alert(ajax.responseText);
+				_(elem).innerHTML = <span class="code-str">'Try again later'</span>;
+			}
+		}
+	}
+	ajax.send(<span class="code-str">"type="</span>+type+<span class="code-str">"&amp;user="</span>+user);
+}
+<b>function</b> blockToggle(type,blockee,elem){
+	var conf = confirm(<span class="code-str">"Press OK to confirm the <span class="code-str">'"</span>+type+<span class="code-str">"'</span> action on user <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span>."</span>);
+	if(conf != true){
+		return false;
+	}
+	var elem = document.getElementById(elem);
+	elem.innerHTML = <span class="code-str">'please wait ...'</span>;
+	var ajax = ajaxObj(<span class="code-str">"POST"</span>, <span class="code-str">"php_parsers/block_system.php"</span>);
+	ajax.onreadystatechange = <b>function</b>() {
+		if(ajaxReturn(ajax) == true) {
+			if(ajax.responseText == <span class="code-str">"blocked_ok"</span>){
+				elem.innerHTML = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"blockToggle(\'</span>unblock\<span class="code-str">',\'</span><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span>\<span class="code-str">',\'</span>blockBtn\<span class="code-str">')"</span>&gt;Unblock User<span class="code-elem">&lt;/button&gt;</span>'</span>;
+			} else if(ajax.responseText == <span class="code-str">"unblocked_ok"</span>){
+				elem.innerHTML = <span class="code-str">'<span class="code-elem">&lt;button onclick=<span class="code-str">"blockToggle(\'</span>block\<span class="code-str">',\'</span><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span>\<span class="code-str">',\'</span>blockBtn\<span class="code-str">')"</span>&gt;Block User<span class="code-elem">&lt;/button&gt;</span>'</span>;
+			} else {
+				alert(ajax.responseText);
+				elem.innerHTML = <span class="code-str">'Try again later'</span>;
+			}
+		}
+	}
+	ajax.send(<span class="code-str">"type="</span>+type+<span class="code-str">"&amp;blockee="</span>+blockee);
+}
+<span class="code-elem">&lt;/script&gt;</span>
+<span class="code-elem">&lt;/head&gt;</span>
+<span class="code-elem">&lt;body&gt;</span>
+<span class="code-elem"><span class="code-phptags">&lt;?php</span> include_once(<span class="code-str">"template_pageTop.php"</span>); <span class="code-phptags">?&gt;</span></span>
+<span class="code-elem">&lt;div id=<span class="code-str">"pageMiddle"</span>&gt;</span>
+  <span class="code-elem">&lt;div id=<span class="code-str">"profile_pic_box"</span>&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $profile_pic_btn; <span class="code-phptags">?&gt;</span></span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $avatar_form; <span class="code-phptags">?&gt;</span></span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $profile_pic; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/div&gt;</span>
+  <span class="code-elem">&lt;h2&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $u; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/h2&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Is the viewer the page owner, logged in and verified? <span class="code-elem">&lt;b&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $isOwner; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/b&gt;</span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Gender: <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $sex; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Country: <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $country; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>User Level: <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $userlevel; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Join Date: <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $joindate; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Last Session: <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $lastsession; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;hr /&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Friend Button: <span class="code-elem">&lt;span id=<span class="code-str">"friendBtn"</span>&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $friend_button; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/span&gt;</span> <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $u.<span class="code-str">" has "</span>.$friend_count.<span class="code-str">" friends"</span>; <span class="code-phptags">?&gt;</span></span> <span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $friends_view_all_link; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span>Block Button: <span class="code-elem">&lt;span id=<span class="code-str">"blockBtn"</span>&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $block_button; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/span&gt;</span><span class="code-elem">&lt;/p&gt;</span>
+  <span class="code-elem">&lt;hr /&gt;</span>
+  <span class="code-elem">&lt;p&gt;</span><span class="code-elem"><span class="code-phptags">&lt;?php</span> echo $friendsHTML; <span class="code-phptags">?&gt;</span></span><span class="code-elem">&lt;/p&gt;</span>
+<span class="code-elem">&lt;/div&gt;</span>
+<span class="code-elem"><span class="code-phptags">&lt;?php</span> include_once(<span class="code-str">"template_pageBottom.php"</span>); <span class="code-phptags">?&gt;</span></span>
+<span class="code-elem">&lt;/body&gt;</span>
+<span class="code-elem">&lt;/html&gt;</span></code></div>
+      </div>
+            <div class="ad_mobile" style="margin-top:25px;">
+        <script async="" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/adsbygoogle.js"></script>
+<!-- DevPHP Responsive 1 -->
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2379004690904460" data-ad-slot="5070281336" data-ad-format="auto" data-adsbygoogle-status="done"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>      </div>
+      <div class="ad_leaderboard">
+        <script async="" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/adsbygoogle.js"></script>
+<!-- 728x90 -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-2379004690904460" data-ad-slot="5685507840" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>      </div>
+      <img id="vid_thumb" src="./PHP User Profile Photo File Upload HTML Form PHP Parse Script MySQL_files/mqdefault.jpg" alt="thumb">
+    </div>
+  </div>
+  <div id="rel_tuts">
+    <div>
+      <h3><a href="https://www.developphp.com/video/PHP">PHP Videos</a></h3>
+      <h4>Social Network Development</h4>
+	  <a href="https://www.developphp.com/video/PHP/Introduction-and-Building-the-Design-Template" title="Introduction and Building the Design Template">Introduction and Building the Design Template</a><a href="https://www.developphp.com/video/PHP/Database-Creation-and-PHP-MySQLi-Connection-Script-Tutorial" title="Database Creation and PHP MySQLi Connection Script Tutorial">Database Creation and PHP MySQLi Connection Script Tutorial</a><a href="https://www.developphp.com/video/PHP/MySQL-Database-Tables-Creation-Script-Logic" title="MySQL Database Tables Creation Script Logic">MySQL Database Tables Creation Script Logic</a><a href="https://www.developphp.com/video/PHP/Establish-htaccess-and-phpini-for-apache-web-site-server-configuration" title="Establish htaccess and phpini for apache web site server configuration">Establish htaccess and phpini for apache web site server configuration</a><a href="https://www.developphp.com/video/PHP/Create-the-Main-JavaScript-Module-and-Insert-Other-Modules-Tutorial" title="Create the Main JavaScript Module and Insert Other Modules Tutorial">Create the Main JavaScript Module and Insert Other Modules Tutorial</a><a href="https://www.developphp.com/video/PHP/Sign-Up-Form-and-Email-Activation-PHP-MySQL-JavaScript-Programming-Tutorial" title="Sign Up Form and Email Activation PHP MySQL JavaScript Programming Tutorial">Sign Up Form and Email Activation PHP MySQL JavaScript Programming Tutorial</a><a href="https://www.developphp.com/video/PHP/Log-In-Form-Log-Out-Script-Cookies-Sessions-User-Profile" title="Log In Form Log Out Script Cookies Sessions User Profile">Log In Form Log Out Script Cookies Sessions User Profile</a><a href="https://www.developphp.com/video/PHP/Cron-Job-Automate-Social-Network-Web-Site-Maintenance-Tutorial" title="Cron Job Automate Social Network Web Site Maintenance Tutorial">Cron Job Automate Social Network Web Site Maintenance Tutorial</a><a href="https://www.developphp.com/video/PHP/Forgot-Account-Password-Form-Email-Script-Ajax-Tutorial" title="Forgot Account Password Form Email Script Ajax Tutorial">Forgot Account Password Form Email Script Ajax Tutorial</a><a href="https://www.developphp.com/video/PHP/Friend-Add-Block-System-Ajax-Tutorial" title="Friend Add Block System Ajax Tutorial">Friend Add Block System Ajax Tutorial</a><a href="https://www.developphp.com/video/PHP/Social-Network-Header-Logic-Dynamic-Links-Example-Script" title="Social Network Header Logic Dynamic Links Example Script">Social Network Header Logic Dynamic Links Example Script</a><a href="https://www.developphp.com/video/PHP/Friend-Lists-and-Social-Network-Notifications-Tutorial" title="Friend Lists and Social Network Notifications Tutorial">Friend Lists and Social Network Notifications Tutorial</a><span>User Profile Photo File Upload HTML Form PHP Parse Script MySQL</span><a href="https://www.developphp.com/video/PHP/Photo-Gallery-CMS-Tutorial" title="Photo Gallery CMS Tutorial">Photo Gallery CMS Tutorial</a><a href="https://www.developphp.com/video/PHP/Conversation-System-Social-Network-Ajax-PHP-MySQL-Tutorial" title="Conversation System Social Network Ajax PHP MySQL Tutorial">Conversation System Social Network Ajax PHP MySQL Tutorial</a><a href="https://www.developphp.com/video/PHP/Send-SMS-Text-Messages-to-Mobile-Phone-PHP-Tutorial" title="Send SMS Text Messages to Mobile Phone PHP Tutorial">Send SMS Text Messages to Mobile Phone PHP Tutorial</a>    </div>
+  </div>
+  <script>
+  if(_("rel_tuts").scrollHeight > _("contentbodychild").scrollHeight){
+	  _("contentbodychild").style.height = _("rel_tuts").scrollHeight+"px";
+  }
+  </script>
+  <div id="social">
+    <button onclick="window.open(&#39;http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.developphp.com%2Fvideo%2FPHP%2FUser-Profile-Photo-File-Upload-HTML-Form-PHP-Parse-Script-MySQL&#39;,&#39;sharer&#39;,&#39;toolbar=0,status=0,width=580,height=400&#39;);" title="Share on Facebook"></button><button onclick="window.open(&#39;http://plus.google.com/share?url=https%3A%2F%2Fwww.developphp.com%2Fvideo%2FPHP%2FUser-Profile-Photo-File-Upload-HTML-Form-PHP-Parse-Script-MySQL&#39;,&#39;share&#39;,&#39;toolbar=0,status=0,width=550,height=450&#39;);" title="Share on Google Plus"></button><button onclick="window.open(&#39;http://www.twitter.com/intent/tweet?url=https%3A%2F%2Fwww.developphp.com%2Fvideo%2FPHP%2FUser-Profile-Photo-File-Upload-HTML-Form-PHP-Parse-Script-MySQL&amp;text=PHP - User Profile Photo File Upload HTML Form PHP Parse Script MySQL&#39;,&#39;tweety&#39;,&#39;toolbar=0,status=0,width=550,height=450&#39;);" title="Tweet this"></button><button onclick="window.location=&#39;mailto:?subject=PHP - User Profile Photo File Upload HTML Form PHP Parse Script MySQL&amp;body=Hi, I thought you might like to see this: %0D%0Ahttps://www.developphp.com/video/PHP/User-Profile-Photo-File-Upload-HTML-Form-PHP-Parse-Script-MySQL&#39;;" title="Send this to an email contact"></button>
+    
+  </div>
+</div>
+<div id="foot">
+  <div id="foot_rule"></div>
+  <div id="foot_copy">
+    © 2016 All Rights Reserved
+  </div>
+  <div id="foot_links">
+    <a href="https://www.developphp.com/">Home</a> •
+    <a href="https://www.developphp.com/Table-of-Contents">Table of Contents</a> •
+    <a href="https://www.developphp.com/donate.php">Donate / Support</a> •
+    <a href="https://www.developphp.com/terms_of_use.php">Terms of Use</a>
+  </div>
+  <fieldset id="affiliation"><legend>Partner Services</legend><b>☁</b><a href="https://www.developphp.com/hosting.php">Hosting Solutions</a></fieldset>
+</div>
+<button id="scrolltopbtn" onclick="resetScroller()" style="display: block;">🔝</button>
+</body></html>
