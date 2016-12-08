@@ -9,3 +9,23 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
         `data` blob NOT NULL,
         KEY `ci_sessions_timestamp` (`timestamp`)
 );
+
+//Chat Messages
+CREATE TABLE `s_chat_messages` (
+`id` INT(11) NOT NULL AUTO_INCREMENT ,
+`user` VARCHAR(255) NOT NULL ,
+`message` VARCHAR(255) NOT NULL ,
+`when` INT(11) NOT NULL ,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE VIEW chat_message AS
+    SELECT 
+        ch.id, ch.user, ch.message, ch.when, ch.user_id
+    FROM
+        s_chat_messages ch
+            INNER JOIN
+        store_session se ON ch.user_id = se.user_id
+            INNER JOIN
+        users sa ON sa.user_id = se.user_id
+

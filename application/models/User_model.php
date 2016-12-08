@@ -36,20 +36,46 @@ class User_model extends CI_Model {
 
     public function validate($data) {
         extract($data);
-        $this->db->where('user_name',$username);
-        $this->db->where('password',$password);
+        $this->db->where('user_name', $username);
+        $this->db->where('password', $password);
         $query = $this->db->get('users');
-        
-        if($query->num_rows() == 1){
+
+        if ($query->num_rows() == 1) {
             return TRUE;
-        }else{
+        } else {
             return FALSE;
         }
     }
-    
-    public function get_specific_user($username){
+
+    public function get_specific_user($username) {
         $query = $this->db->get_where('users', array('user_name' => $username));
         return $query->row_array();
+    }
+
+    public function insert_message($data) {
+        return $this->db->insert('s_chat_messages', $data);
+    }
+
+    public function get_messages() {
+
+        $result = array();
+        $this->db->limit(6);
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('chat_message');
+        if ($query->num_rows() > 0) {
+
+            return $query->result_array();
+        }
+    }
+
+    public function store_session($data) {
+        
+        return $this->db->insert('store_session', $data);
+    }
+
+    public function destroy_session($id) {
+        $this->db->where('store_session.user_id', $id);
+        return $this->db->delete('store_session');
     }
 
 }
