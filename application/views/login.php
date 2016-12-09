@@ -31,31 +31,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <img class="w3-image" src="assets/images/9466516615.jpg" alt="Medical" width="1500" height="700" />
             <div class="w3-display-middle" style="width:90%; height: 90%">
 
+                
+                <div class="w3-container w3-half w3-margin-top">
 
-                <div class="container container-fluid">
-                    <form class="form-horizontal" method="post" action="/cbr/login/user_validate">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="username">Username:</label>
-                            <div class="col-sm-9">
-                                <input  class="form-control" type="text" name="username" placeholder="Enter your email address or username"required="required"/>
-                            </div>
-                        </div>
+                    <form class="w3-container w3-card-4">
 
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="password" >Password</label>
-                            <div class="col-sm-9">
-                                <input class="form-control" type="password" name="password" required="required"/>
-                            </div>
+                        <p>
+                            <input class="w3-input" type="text" style="width:90%" required>
+                                <label class="w3-label w3-validate">Name</label></p>
+                        <p>
+                            <input class="w3-input" type="password" style="width:90%" required>
+                                <label class="w3-label w3-validate">Password</label></p>
 
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-9">
-                                <button type="submit" class="btn btn-info">Login</button>
-                                <button type="submit" class="btn btn-warning">Create Account</button>
-                            </div>
-                        </div>
+                        <p>
+                            <input class="w3-radio" type="radio" name="gender" value="male" checked>
+                                <label class="w3-validate">Male</label></p>
+
+                        <p>
+                            <input class="w3-radio" type="radio" name="gender" value="female">
+                                <label class="w3-validate">Female</label></p>
+
+                        <p>
+                            <input class="w3-radio" type="radio" name="gender" value="" disabled>
+                                <label class="w3-validate">Don't know (Disabled)</label></p>
+
+                        <p>
+                            <input id="milk" class="w3-check" type="checkbox" checked="checked">
+                                <label class="w3-validate">Stay logged in</label></p>
+
+                        <p>
+                            <button class="w3-btn w3-section w3-teal w3-ripple"> Log in </button></p>
+
                     </form>
+
                 </div>
+                <!--                <div class="container container-fluid">
+                                    <form class="form-horizontal" method="post" action="/cbr/login/user_validate">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2" for="username">Username:</label>
+                                            <div class="col-sm-9">
+                                                <input  class="form-control" type="text" name="username" placeholder="Enter your email address or username"required="required"/>
+                                            </div>
+                                        </div>
+                
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2" for="password" >Password</label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="password" name="password" required="required"/>
+                                            </div>
+                
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-9">
+                                                <button type="submit" class="btn btn-info">Login</button>
+                                                <button type="submit" class="btn btn-warning">Create Account</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>-->
             </div>
     </body>
 </html>
