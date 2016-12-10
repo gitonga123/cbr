@@ -343,24 +343,24 @@ class Welcome extends CI_Controller {
         //$result_date = $current_time->diff($end_time);
         //echo $result_date->i;
         $messages = $this->get_messages();
-        
+
         //print_r($messages);
         foreach ($messages as $key => $value) {
-                $end_time = new DateTime($value['when']);
-                $result_date = $current_time->diff($end_time);
+            $end_time = new DateTime($value['when']);
+            $result_date = $current_time->diff($end_time);
             if ($value['user_id'] == $_SESSION['user_id']) {
-                
+
                 echo "<li class='left clearfix'><span class='chat-img pull-left'>
                 <img src='/cbr/assets/images/user.png' class='img-circle' alt='Cinque Terre' width='40' height='30' /> 
                                     </span>
                 <div class='chat-body clearfix'>
                     <div class='header'>
                        <strong class='primary-font'>";
-              
-                    echo $value['user'];
-                
+
+                echo $value['user'];
+
                 echo "</strong> <small class='pull-right text-muted'>
-                            <span class='glyphicon glyphicon-time'></span>".$result_date->i. "mins ago</small>
+                            <span class='glyphicon glyphicon-time'></span>" . $result_date->i . "mins ago</small>
                     </div>
                     <p>" . $value['message'] .
                 "</p> </div></li>";
@@ -371,11 +371,11 @@ class Welcome extends CI_Controller {
                         </span>
                         <div class='chat-body clearfix'>
                             <div class'header-reply'>
-                                <small class' text-muted'><span class='glyphicon glyphicon-time'></span>".$result_date->i." mins ago</small>
+                                <small class' text-muted'><span class='glyphicon glyphicon-time'></span>" . $result_date->i . " mins ago</small>
                                 <strong class='pull-right primary-font'>";
-                
-                    echo $value['user'] . "</strong>";
-                
+
+                echo $value['user'] . "</strong>";
+
                 echo " </div> <p>" . $value['message'] .
                 "</p>
                         </div>
@@ -385,9 +385,39 @@ class Welcome extends CI_Controller {
     }
 
     public function get_messages() {
-        $data['user_id'] = $_SESSION['user_id'];
         $datas = $this->user_model->get_messages();
         return $datas;
+    }
+
+    public function inbox() {
+       $data = $this->user_model->inbox();
+       print_r($data);
+       echo '<table class="table table-hover table-mail"><tbody>';
+       foreach($data as $key => $value){
+           if($value['status'] == 'no'){
+               echo '   <tr class="unread">
+                            <td class="check-mail">
+                                <input type="checkbox" class="checkbox">
+                            </td>
+                            <td class="mail-ontact"><a href="#">'.$value['sender'].'<span class="label label-warning pull-right">New</span></a></td>
+                            <td class="mail-subject"><a href="#">'.$value['title'].'</a></td>
+                            <td class=""><i class="fa fa-paperclip"></i></td>
+                            <td class="text-right mail-date">'.$value['timestamp'].'</td>
+                        </tr>';
+            
+           }else if($value['status'] == 'yes'){
+               echo '<tr class="read">
+                        <td class="check-mail">
+                            <input type="checkbox" class="i-checks">
+                        </td>
+                        <td class="mail-ontact"><a href="#">Facebook</a></td>
+                        <td class="mail-subject"><a href="#">Many desktop publishing packages and web page editors.</a></td>
+                        <td class=""></td>
+                        <td class="text-right mail-date">Jan 16</td>
+                    </tr>';
+           }
+       }
+       echo '</tbody></table>';
     }
 
 }

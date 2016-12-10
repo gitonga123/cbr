@@ -7,6 +7,10 @@ function Chat() {
     this.send = sendChat;
     this.getState = getStateOfChat;
 }
+function updateChats(){
+    this.updateChat();
+    this.check_in_box();
+}
 
 function getStateOfChat() {
     if (!instanse) {
@@ -24,7 +28,7 @@ function getStateOfChat() {
     }
 }
 
-function updateChats() {
+function updateChat() {
     var srvRqst = $.ajax({
         url: 'http://localhost/cbr/welcome/print_messages',
         data: {},
@@ -35,6 +39,19 @@ function updateChats() {
     $('div.chat_result').html(response);
      });
 }
+
+function check_in_box(){
+    var srvRqst = $.ajax({
+        url: 'http://localhost/cbr/welcome/inbox',
+        data: {},
+        type: 'post'
+    });
+    
+    srvRqst.done(function (response) {
+    $('div.read-inbox').html(response);
+     });
+}
+
 function display_name(){
     console.log('Daniel Mutwiri');
 }

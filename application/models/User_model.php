@@ -69,13 +69,21 @@ class User_model extends CI_Model {
     }
 
     public function store_session($data) {
-        
+
         return $this->db->insert('store_session', $data);
     }
 
     public function destroy_session($id) {
         $this->db->where('store_session.user_id', $id);
         return $this->db->delete('store_session');
+    }
+
+    public function inbox() {
+        $this->db->where('private_message_send.receiver', 5);
+        $query = $this->db->get('private_message_send');
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
     }
 
 }

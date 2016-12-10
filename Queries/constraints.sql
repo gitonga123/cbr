@@ -29,3 +29,30 @@ CREATE VIEW chat_message AS
             INNER JOIN
         users sa ON sa.user_id = se.user_id
 
+CREATE TABLE `privatemessage` (
+  `id` bigint(20) NOT NULL,
+  `id2` int(11) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `user1` bigint(20) NOT NULL,
+  `user2` bigint(20) NOT NULL,
+  `message` text NOT NULL,
+  `timestamp` int(10) NOT NULL,
+  `user1read` varchar(3) NOT NULL,
+  `user2read` varchar(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE private_message_send (
+    msg_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100),
+    sender INT NOT NULL,
+    receiver INT NOT NULL,
+    message TEXT NOT NULL,
+    timestamp VARCHAR(100),
+    status VARCHAR(100)
+)
+CREATE TABLE reply_message_send (
+    reply_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    msg_id INT NOT NULL,
+    message TEXT NOT NULL,
+    sendto INT NOT NULL
+);
