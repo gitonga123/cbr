@@ -79,8 +79,28 @@ class User_model extends CI_Model {
     }
 
     public function inbox() {
-        $this->db->where('private_message_send.receiver', 5);
-        $query = $this->db->get('private_message_send');
+        $this->db->where('inbox.msg_to', $_SESSION['email']);
+        $query = $this->db->get('inbox');
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        }
+    }
+
+    public function get_email_address() {
+        $this->db->select('email');
+        $this->db->where('user_id !=', $_SESSION['user_id']);
+        $query = $this->db->get('users');
+        return $query->result_array();
+    }
+    
+    public function send_email($data){
+       return $this->db->insert('private_message_send',$data);
+    }
+    
+    public function get_sent_mail(){
+        $this->db->where('inbox.sender',$_SESSION['user_id']);
+        $query = $this->db->get('inbox');
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }

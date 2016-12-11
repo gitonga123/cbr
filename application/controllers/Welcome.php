@@ -343,7 +343,7 @@ class Welcome extends CI_Controller {
         //$result_date = $current_time->diff($end_time);
         //echo $result_date->i;
         $messages = $this->get_messages();
-
+        $messages = array_reverse($messages);
         //print_r($messages);
         foreach ($messages as $key => $value) {
             $end_time = new DateTime($value['when']);
@@ -390,34 +390,93 @@ class Welcome extends CI_Controller {
     }
 
     public function inbox() {
-       $data = $this->user_model->inbox();
-       print_r($data);
-       echo '<table class="table table-hover table-mail"><tbody>';
-       foreach($data as $key => $value){
-           if($value['status'] == 'no'){
-               echo '   <tr class="unread">
+        $data = $this->user_model->inbox();
+
+        echo '<table class="table table-hover table-mail"><tbody>';
+        if (count($data) <= 0) {
+            echo "<div class='alert alert-info'><p>No New Messages</p></div>";
+        } else {
+            foreach ($data as $key => $value) {
+                if ($value['status'] == 'no') {
+                    echo '   <tr class="unread">
                             <td class="check-mail">
                                 <input type="checkbox" class="checkbox">
                             </td>
-                            <td class="mail-ontact"><a href="#">'.$value['sender'].'<span class="label label-warning pull-right">New</span></a></td>
-                            <td class="mail-subject"><a href="#">'.$value['title'].'</a></td>
+                            <td class="mail-ontact"><a href="#"><bold>' . $value['whole_name'] . '</bold>' . '<span class="label label-warning pull-right">New</span></a></td>
+                            <td class="mail-subject"><a href="#">' . $value['title'] . '</a></td>
                             <td class=""><i class="fa fa-paperclip"></i></td>
-                            <td class="text-right mail-date">'.$value['timestamp'].'</td>
+                            <td class="text-right mail-date">' . $value['timestamp'] . '</td>
                         </tr>';
-            
-           }else if($value['status'] == 'yes'){
-               echo '<tr class="read">
+                } else if ($value['status'] == 'yes') {
+                    echo '<tr class="read">
                         <td class="check-mail">
                             <input type="checkbox" class="i-checks">
                         </td>
-                        <td class="mail-ontact"><a href="#">Facebook</a></td>
-                        <td class="mail-subject"><a href="#">Many desktop publishing packages and web page editors.</a></td>
+                        <td class="mail-ontact"><a href="#">' . $value['whole_name'] . '</a></td>
+                        <td class="mail-subject"><a href="#">' . $value['title'] . '</a></td>
                         <td class=""></td>
-                        <td class="text-right mail-date">Jan 16</td>
+                        <td class="text-right mail-date">' . $value['timestamp'] . '</td>
                     </tr>';
-           }
-       }
-       echo '</tbody></table>';
+                }
+            }
+        }
+        echo '</tbody></table>';
+    }
+
+    public function count_inbox() {
+        $data = $this->user_model->inbox();
+        $size = count($data);
+        echo $size;
+    }
+
+    public function get_email_address() {
+        $data = $this->user_model->get_email_address();
+        $email = array();
+        foreach ($data as $key => $value) {
+            $email[] = $value['email'];
+        }
+        echo json_encode($email);
+    }
+
+    public function send_email() {
+        $data['msg_from'] = $_SESSION['email'];
+        $data['msg_to'] = $this->input->post('receipt_email');
+        $data['title'] = $this->input->post('subject');
+        $data['timestamp'] = date("Y-m-d H:i:s");
+        $data['status'] = 'no';
+        $data['message'] = $this->input->post('message_sent');
+        $data['sender'] = $_SESSION['user_id'];
+        print_r($data);
+        $send_email = $this->user_model->send_email($data);
+        if ($send_email) {
+            echo '<p class="alert alert-danger">Message Send Successfully</p>';
+        }
+    }
+
+    public function get_sent_mail() {
+        $data = $this->user_model->get_sent_mail();
+        $size = count($data);
+        echo '<table class="table table-hover table-mail"><tbody>';
+        if ($size >= 0) {
+            foreach ($data as $key => $value) {
+                if($value['sender'] == $_SESSION['user_id']) {
+
+
+                    echo '   <tr class="unread">
+                        <td class="check-mail">
+                            <input type="checkbox" class="checkbox">
+                        </td>
+                        <td class="mail-ontact"><a href="#"><bold>' . $value['whole_name'] . '</bold>' . '</a></td>
+                        <td class="mail-subject"><a href="#">' . $value['title'] . '</a></td>
+                        <td class=""><i class="fa fa-paperclip"></i></td>
+                        <td class="text-right mail-date">' . $value['timestamp'] . '</td>
+                    </tr>';
+                }
+            }
+        } else {
+            echo '<p class="alert alert-danger">Sent Messages Empty</p>';
+        }
+        echo "</tbody></table>";
     }
 
 }

@@ -7,9 +7,11 @@ function Chat() {
     this.send = sendChat;
     this.getState = getStateOfChat;
 }
-function updateChats(){
+function updateChats() {
     this.updateChat();
     this.check_in_box();
+    this.count();
+    this.check_out_box();
 }
 
 function getStateOfChat() {
@@ -27,7 +29,17 @@ function getStateOfChat() {
         });
     }
 }
+function count(){
+    var srvRqst = $.ajax({
+        url: 'http://localhost/cbr/welcome/count_inbox',
+        data: {},
+        type: 'post'
+    });
 
+    srvRqst.done(function (response) {
+        $('.inbox_size').html(response);
+    });
+}
 function updateChat() {
     var srvRqst = $.ajax({
         url: 'http://localhost/cbr/welcome/print_messages',
@@ -36,23 +48,35 @@ function updateChat() {
     });
 
     srvRqst.done(function (response) {
-    $('div.chat_result').html(response);
-     });
+        $('div.chat_result').html(response);
+    });
 }
 
-function check_in_box(){
+function check_in_box() {
     var srvRqst = $.ajax({
         url: 'http://localhost/cbr/welcome/inbox',
         data: {},
         type: 'post'
     });
-    
+
     srvRqst.done(function (response) {
-    $('div.read-inbox').html(response);
-     });
+        $('div.read-inbox').html(response);
+    });
 }
 
-function display_name(){
+function check_out_box() {
+    var srvRqst = $.ajax({
+        url: 'http://localhost/cbr/welcome/get_sent_mail',
+        data: {},
+        type: 'post'
+    });
+
+    srvRqst.done(function (response) {
+        $('div.read_outbox').html(response);
+    });
+}
+
+function display_name() {
     console.log('Daniel Mutwiri');
 }
 //
@@ -81,8 +105,9 @@ function display_name(){
 //        setTimeout(updateChat, 1500);
 //        }
 //}
-
-    function sendChat(message, nickname) {
+   
+    
+function sendChat(message, nickname) {
     updateChat();
     $.ajax({
         type: "POST",

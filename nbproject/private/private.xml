@@ -4,12 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/html/cbr/application/controllers/form.php</file>
+            <file>file:/var/www/html/cbr/Queries/constraints.sql</file>
             <file>file:/var/www/html/cbr/assets/css/style.css</file>
             <file>file:/var/www/html/cbr/application/views/welcome_message.php</file>
             <file>file:/var/www/html/cbr/application/models/Case_Model.php</file>
             <file>file:/var/www/html/cbr/application/views/login.php</file>
             <file>file:/var/www/html/cbr/application/controllers/Welcome.php</file>
             <file>file:/var/www/html/cbr/application/models/User_model.php</file>
+            <file>file:/var/www/html/cbr/assets/js/chat.js</file>
             <file>file:/var/www/html/cbr/application/views/header.php</file>
             <file>file:/var/www/html/cbr/application/views/edit_user.php</file>
         </group>

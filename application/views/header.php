@@ -22,6 +22,8 @@ if ($_SESSION['is_logged_in']) {
                 <link rel="stylesheet" type="text/css" href="assets/admin/font-awesome/css/font-awesome.css"></link>
                 <link rel="stylesheet" type="text/css" href="assets/admin/css/plugins/iCheck/custom.css"></link>
                 <link rel="stylesheet" type="text/css" href="assets/admin/css/animate.css"></link>
+                <link rel="stylesheet" type="text/css" href="assets/admin/css/plugins/summernote/summernote.css"></link>
+                <link rel="stylesheet" type="text/css" href="assets/admin/css/plugins/summernote/summernote-bs3.css"></link>
                 <link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.min.css"></link>
                 <!--                <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"></link>
                                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"></link>
@@ -38,6 +40,7 @@ if ($_SESSION['is_logged_in']) {
                
                 <script type="text/javascript" src="assets/admin/js/plugins/pace/pace.min.js"></script>
                 <script type="text/javascript" src="assets/admin/js/plugins/iCheck/icheck.min.js"></script>
+                <script type="text/javascript" src="assets/admin/js/plugins/summernote/summernote.min.js"></script>
                 <style>
                     body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
                     .myLink {display: none}
