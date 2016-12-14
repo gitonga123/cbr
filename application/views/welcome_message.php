@@ -32,7 +32,7 @@ if ($_SESSION['is_logged_in']) {
     //            }
         }
     </script>
-    <body class="w3-light-grey" onload="setInterval('updateChats()', 1000)">
+    <body class="w3-light-grey" onload="setInterval('updateChats()', 10000)">
         <div>
             <ul class="w3-navbar w3-white w3-border-bottom w3-xlarge">
                 <li><a href="#" class="w3-text-blue w3-hover-blue-gray"><b><i class="w3-margin-right"><img src="assets/images/logo11.png"></i>CBR DIAGNOSIS</b></a></li>
@@ -699,7 +699,7 @@ if ($_SESSION['is_logged_in']) {
                                         <div class="mail-box">
                                             <div class="send_mail_notification">
                                                 <div class="mail-body">
-                                                    <form class="form-horizontal" method="post" action="welcome/send_email" id="email_form">
+                                                    <form class="form-horizontal" method="post" action="" id="email_form">
                                                         <div class="form-group">
                                                             <label class="col-sm-2 control-label">To:</label>
 
@@ -709,7 +709,7 @@ if ($_SESSION['is_logged_in']) {
                                                         </div>
                                                         <div class="form-group"><label class="col-sm-2 control-label">Subject:</label>
 
-                                                            <div class="col-sm-10"><input type="text" class="form-control" name="subject" required="required"></div>
+                                                            <div class="col-sm-10"><input type="text" class="form-control" name="subject" required="required" id="emailtitle"></div>
                                                         </div>
 
 
@@ -720,7 +720,7 @@ if ($_SESSION['is_logged_in']) {
                                                             </textarea>
                                                             <div class="clearfix"></div>
                                                             <div class="mail-body text-right tooltip-demo">
-                                                                <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send" id="send_emails"><i class="fa fa-reply"></i> Send</button>
+                                                                <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Send" id="send_emails" onclick="save()"><i class="fa fa-reply"></i> Send</button>
                                                                 <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Discard email"><i class="fa fa-times"></i> Discard</a>
                                                                 <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to draft folder"><i class="fa fa-pencil"></i> Draft</a>
                                                             </div>
@@ -733,15 +733,24 @@ if ($_SESSION['is_logged_in']) {
                                     </div>
                                 </div>
                                 <script type="text/javascript">
-                                    $(document).ready(function () {
-                                        $('form#email_form').on('submit', function (form) {
-                                            form.preventDefault();
-                                            $.post('welcome/send_email', $('form#email_form').serialize(), function (data) {
-                                                $('div.send_mail_notification').html(data);
-                                            });
-                                        });
-                                    });
+                                function sendemail(){
+                                    var user=$('#user-emails').val();
+                                    var title=$('#emailtitle').val();
+                                    var aHTML = $('.summernote').code();
+                                    alert(aHTML);
+                                }
+                                    // $(document).ready(function () {
+                                    //     $('form#email_form').on('submit', function (form) {
+                                    //         form.preventDefault();
+                                    //         $.post('welcome/send_email', $('form#email_form').serialize(), function (data) {
+                                    //             $('div.send_mail_notification').html(data);
+                                    //         });
+                                    //     });
+                                    // });
+                                   
+
                                 </script>
+
                                 <div class="footer">
                                     <div class="pull-right">
                                         <strong>Check Your Email Oftenly</strong>
@@ -767,8 +776,23 @@ if ($_SESSION['is_logged_in']) {
                         };
 
                         var save = function () {
-                            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-                            $('.click2edit').destroy();
+                            var user=$('#user-emails').val();
+                                    var title=$('#emailtitle').val();
+                                    var aHTML = $('.summernote').code();
+                                    alert(aHTML); //save HTML If you need(aHTML: array).
+                                    $srvrequest= $.ajax({
+                                        url: 'http://localhost/cbr/index.php/welcome/send_email',
+                                        type: 'post',
+                                        data: {receipt_email : user, subject : title, message_sent: aHTML},
+                                        datatype: 'text',
+
+                                    });
+                                    srvRqst.done(function (response) {
+                                       $('.summernote').destroy();
+                                       var html='<p class="alert alert-danger">Message Send Successfully</p>';
+                                        $('div.send_mail_notification').html(html);
+                                        });
+                            
                         };
                         function openCity(evt, cityName) {
                             var i, tabcontent, tablinks;

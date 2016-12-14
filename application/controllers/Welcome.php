@@ -446,11 +446,11 @@ class Welcome extends CI_Controller {
         $data['status'] = 'no';
         $data['message'] = $this->input->post('message_sent');
         $data['sender'] = $_SESSION['user_id'];
-        print_r($data);
-        $send_email = $this->user_model->send_email($data);
-        if ($send_email) {
-            echo '<p class="alert alert-danger">Message Send Successfully</p>';
-        }
+       // print_r($data);
+         $send_email = $this->user_model->send_email($data);
+         if ($send_email) {
+             echo '<p class="alert alert-danger">Message Send Successfully</p>';
+         }
     }
 
     public function get_sent_mail() {
