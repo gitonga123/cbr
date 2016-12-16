@@ -54,28 +54,53 @@ class Welcome extends CI_Controller {
 
         $json_data = json_encode($received_db);
         $vararray = json_decode($json_data, true);
-        $data_results = $this->search_return($vararray, 'symptom_name', $data_received[0]);
+        $daniel = array();
+        for ($i = 0; $i < count($data_received); $i++) {
+            $daniel[$data_received[$i]] =  count($this->search_return($vararray, 'symptom_name', $data_received[$i]));
+        }
+        $value_max = 0;
+        $possible_symptom = NULL;
+        
+        print_r($daniel);
+        foreach($daniel as $key => $value)
+        {
+            if($value > $value_max){
+                $value_max = $value;
+                $possible_symptom = $key;
+            }
+        }
+        
+        
+        echo $possible_symptom . "<br />";
+        foreach($data_received as $key => $value){
+            if($value == $possible_symptom){
+                $hold_key = $key;
+            }
+        }
+       // print_r($data_received);
+        //echo $hold_key;
+        $data_results = $this->search_return($vararray, 'symptom_name', $data_received[$hold_key]);
 
         if (count($data_received) > 1) {
-            $multiple_data = array();
-            $result_count = array();
+
             echo '<table class="table table-hover">';
 
             $multiple_data = $this->multi_symptom_search($data_results, $vararray, $data_received);
             $result_count = array_count_values($multiple_data);
-//            echo '<thead><tr><th>Diseases Name</th></tr><tbody>';
-//            foreach ($multiple_data as $key) {
-//
-//                echo "<tr><td>" . $key . "</td></tr>";
-//            }
-//            echo "</tbody></table>";
+            arsort($result_count);
+
+
+            $disease_count1 = $this->send_disease_count($result_count);
+            $disease_result2 = $this->send_disease_result($result_count);
+
+
+            echo "<button class='btn btn-info' onclick='view_graph($disease_count1,$disease_result2)'>View As A Graph</button>";
             echo "<table class='table table-hover'><thead><tr><th>Disease Name</th><th>Symptom Frequency Appearance:</th></tr><tbody>";
             foreach ($result_count as $value => $kyes) {
                 echo "<tr><td>" . $value . "</td><td>" . $kyes . "</td><tr>";
             }
 
             echo "</tbody></table>";
-            print_r($result_count);
         } else {
 
             echo '<table class="table table-hover">';
@@ -89,6 +114,24 @@ class Welcome extends CI_Controller {
             }
             echo "</tbody></table>";
         }
+    }
+
+    public function send_disease_count($disease_count) {
+        $count = array();
+        foreach ($disease_count as $value => $keys) {
+            $count[] = $keys;
+        }
+        $result = json_encode($count);
+        return $result;
+    }
+
+    public function send_disease_result($disease_result) {
+        $count = array();
+        foreach ($disease_result as $value => $keys) {
+            $count[] = $value;
+        }
+        $result = json_encode($count);
+        return $result;
     }
 
     public function search_return($array, $key, $value) {
@@ -446,11 +489,11 @@ class Welcome extends CI_Controller {
         $data['status'] = 'no';
         $data['message'] = $this->input->post('message_sent');
         $data['sender'] = $_SESSION['user_id'];
-       // print_r($data);
-         $send_email = $this->user_model->send_email($data);
-         if ($send_email) {
-             echo '<p class="alert alert-danger">Message Send Successfully</p>';
-         }
+        // print_r($data);
+        $send_email = $this->user_model->send_email($data);
+        if ($send_email) {
+            echo '<p class="alert alert-danger">Message Send Successfully</p>';
+        }
     }
 
     public function get_sent_mail() {
@@ -459,7 +502,7 @@ class Welcome extends CI_Controller {
         echo '<table class="table table-hover table-mail"><tbody>';
         if ($size >= 0) {
             foreach ($data as $key => $value) {
-                if($value['sender'] == $_SESSION['user_id']) {
+                if ($value['sender'] == $_SESSION['user_id']) {
 
 
                     echo '   <tr class="unread">
