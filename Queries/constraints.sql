@@ -56,3 +56,28 @@ CREATE TABLE reply_message_send (
     message TEXT NOT NULL,
     sendto INT NOT NULL
 );
+
+create table frequent_cases(
+	id int not null primary key auto_increment,
+    search_id int not null,
+    symptom_name varchar(100)
+);
+  
+CREATE VIEW unaccounted_symptom AS
+    SELECT 
+        d.symptom_id, d.symptom_name
+    FROM
+        symptom d
+            LEFT JOIN
+        disease_case c ON d.symptom_id = c.symptom_id
+    WHERE
+        c.disease_id IS NULL
+ 
+CREATE VIEW frequent_symptom_searches AS
+    SELECT DISTINCT
+        (symptom_name), c.search_id
+    FROM
+        frequent_cases c
+            INNER JOIN
+        count_frequent_search d ON c.search_id = d.search_id
+

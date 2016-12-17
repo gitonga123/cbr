@@ -32,7 +32,7 @@ if ($_SESSION['is_logged_in']) {
             //            }
         }
     </script>
-    <body class="w3-light-grey" onload="setInterval('updateChats()', 1000)">
+    <body class="w3-light-grey" onload="setInterval('updateChats()', 10000)">
 
         <ul class="w3-navbar w3-white w3-border-bottom w3-xlarge">
             <li><a href="#" class="w3-text-blue w3-hover-blue-gray"><b><i class="w3-margin-right"><img src="assets/images/logo11.png"></i>CBR DIAGNOSIS</b></a></li>
@@ -835,7 +835,7 @@ if ($_SESSION['is_logged_in']) {
                         <div class="form-group" id="dynamic_search_field">
                             <label class="control-label col-sm-2" for="symptom">Symptom:</label>
                             <div class="col-sm-10" style="margin-bottom:20px;">
-                                <input type="text" class="form-control" id="symptom_search" name="symptom_search[]" placeholder="Enter symptom to search">
+                                <input type="text" class="form-control" id="symptom_search" name="symptom_search[]" placeholder="Enter symptom to search" required="required">
                             </div>
                         </div>
 
@@ -863,115 +863,125 @@ if ($_SESSION['is_logged_in']) {
                                         <div class="ibox float-e-margins">
                                             <div class="ibox-title">
                                                 <h3>View Reports</h3>
-                                                <div class="ibox-tools">  
-
+                                                <div class="ibox-content">
+                                                    <div>
+                                                        <canvas id="chartArea" height="100"></canvas>
+                                                    </div>
                                                 </div>
-                                            </div> 
-                                            <!--                                            <div class="ibox-content">
-                                                                                            <div>                                                 
-                                                                                                <canvas id="lineChart" height="100"></canvas>
-                                                                                            </div>
-                                                                                        </div>                                        -->
-                                        </div>                                   
-                                    </div>                              
+                                                <div class="hr-line-dashed"></div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Select Report:</label>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-control m-b" name="account" id="searchReport">
+                                                            <option value="">--Select Report--</option>
+                                                            <option value="case_summary">Graphical Case View</option>
+                                                            <option value="case_view">Case Summary</option>
+                                                            <option value="sytem_user">Summary of System Users</option>
+                                                            <option value="frequently_searched">Frequently Cases</option>                                             
+                                                        </select>
+                                                    </div>
+                                                </div> 
+
+                                            </div>                                   
+                                        </div>                              
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <script>
-                //Auto suggest for symptoms inputs
-                var srvRqst = $.ajax({
-                    url: 'http://localhost/cbr/index.php/welcome/searchArea',
-                    data: {},
-                    type: 'post',
-                    datatype: 'json'
-
-                }
-                );
-                srvRqst.done(function (response) {
-                    var dataSource = $.parseJSON(response);
-                    $("#symptom_search").autocomplete({
-                        source: dataSource
-                    });
-                });
-                //Auto suggest for email address
-                var srvRqst = $.ajax({
-                    url: 'http://localhost/cbr/index.php/welcome/get_email_address',
-                    data: {},
-                    type: 'post',
-                    datatype: 'json'
-
-                }
-                );
-                srvRqst.done(function (response) {
-                    var dataSource = $.parseJSON(response);
-                    $("#user-emails").autocomplete({
-                        source: dataSource
-                    });
-                });
-
-                //Add dynamic fields
-                $(document).ready(function () {
+                <script>
+                    //Auto suggest for symptoms inputs
                     var srvRqst = $.ajax({
                         url: 'http://localhost/cbr/index.php/welcome/searchArea',
                         data: {},
                         type: 'post',
                         datatype: 'json'
 
+                    }
+                    );
+                    srvRqst.done(function (response) {
+                        var dataSource = $.parseJSON(response);
+                        $("#symptom_search").autocomplete({
+                            source: dataSource
+                        });
                     });
-                    var max_fields = 15;
-                    var wrapper = $("#dynamic_search_field");
-                    var add_button = $("#add_search");
-                    var intial = 1;
-                    $(add_button).click(function (e) { //on add input button click
-                        e.preventDefault();
-                        if (intial < max_fields) { //max input box allowed
-                            intial++; //text box increment
-                            $(wrapper).append(
-                                    '<div>\n\
-                                         \n\<label class="control-label col-sm-2" for="symptom">Symptom:</label>\n\
-                                    \n\
-                                        <div class="col-sm-10">\n\
-                                            <input type="text" name="symptom_search[]" class="form-control ui-autocomplete-input" placeholder="Enter symptom to search" id="symptomsearch" autocomplete="off" />\n\
-                                        </div>\n\
-                                    \n\<button id="remove" class="btn btn-danger remove-me" type="button" style="margin-top:10px; margin-bottom:10px; margin-left:18.3%;">-</button>\n\
-                                    \n\ </div>'); //add input box
+                    //Auto suggest for email address
+                    var srvRqst = $.ajax({
+                        url: 'http://localhost/cbr/index.php/welcome/get_email_address',
+                        data: {},
+                        type: 'post',
+                        datatype: 'json'
 
-                        }
+                    }
+                    );
+                    srvRqst.done(function (response) {
+                        var dataSource = $.parseJSON(response);
+                        $("#user-emails").autocomplete({
+                            source: dataSource
+                        });
+                    });
+
+                    //Add dynamic fields
+                    $(document).ready(function () {
+                        var srvRqst = $.ajax({
+                            url: 'http://localhost/cbr/index.php/welcome/searchArea',
+                            data: {},
+                            type: 'post',
+                            datatype: 'json'
+
+                        });
+                        var max_fields = 15;
+                        var wrapper = $("#dynamic_search_field");
+                        var add_button = $("#add_search");
+                        var intial = 1;
+                        $(add_button).click(function (e) { //on add input button click
+                            e.preventDefault();
+                            if (intial < max_fields) { //max input box allowed
+                                intial++; //text box increment
+                                $(wrapper).append(
+                                        '<div>\n\
+                                             \n\<label class="control-label col-sm-2" for="symptom">Symptom:</label>\n\
+                                        \n\
+                                            <div class="col-sm-10">\n\
+                                                <input type="text" name="symptom_search[]" class="form-control ui-autocomplete-input" placeholder="Enter symptom to search" id="symptomsearch" autocomplete="off" />\n\
+                                            </div>\n\
+                                        \n\<button id="remove" class="btn btn-danger remove-me" type="button" style="margin-top:10px; margin-bottom:10px; margin-left:18.3%;">-</button>\n\
+                                        \n\ </div>'); //add input box
+
+                            }
+                            srvRqst.done(function (response) {
+                                var dataSource = $.parseJSON(response);
+                                $(wrapper).find('input[type=text]:last').autocomplete({
+                                    source: dataSource
+                                });
+                            });
+                        });
+                        $(wrapper).on("click", "#remove", function (e) { //user click on remove text
+                            e.preventDefault();
+                            $(this).parent('div').remove();
+                            intial--;
+                        });
                         srvRqst.done(function (response) {
                             var dataSource = $.parseJSON(response);
-                            $(wrapper).find('input[type=text]:last').autocomplete({
+                            $("input[name^='symptom_search']").autocomplete({
                                 source: dataSource
                             });
                         });
                     });
-                    $(wrapper).on("click", "#remove", function (e) { //user click on remove text
-                        e.preventDefault();
-                        $(this).parent('div').remove();
-                        intial--;
-                    });
-                    srvRqst.done(function (response) {
-                        var dataSource = $.parseJSON(response);
-                        $("input[name^='symptom_search']").autocomplete({
-                            source: dataSource
+                    $(document).ready(function () {
+                        $('form#search_form').on('submit', function (form) {
+                            form.preventDefault();
+                            $.post('index.php/welcome/search_result', $('form#search_form').serialize(), function (data) {
+                                $('div.search_result').html(data);
+                            });
+                        });
+                        $("form#search_form").click(function () {
+                            $("#search_result_diagnosis").hide();
                         });
                     });
-                });
-                $(document).ready(function () {
-                    $('form#search_form').on('submit', function (form) {
-                        form.preventDefault();
-                        $.post('index.php/welcome/search_result', $('form#search_form').serialize(), function (data) {
-                            $('div.search_result').html(data);
-                        });
-                    });
-                    $("form#search_form").click(function(){
-                        $("#search_result_diagnosis").hide();
-                    });
-                });
-            </script>
+                </script>
 
         </header>
         <script>

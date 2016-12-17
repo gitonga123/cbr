@@ -56,28 +56,27 @@ class Welcome extends CI_Controller {
         $vararray = json_decode($json_data, true);
         $daniel = array();
         for ($i = 0; $i < count($data_received); $i++) {
-            $daniel[$data_received[$i]] =  count($this->search_return($vararray, 'symptom_name', $data_received[$i]));
+            $daniel[$data_received[$i]] = count($this->search_return($vararray, 'symptom_name', $data_received[$i]));
         }
         $value_max = 0;
         $possible_symptom = NULL;
-        
+
         print_r($daniel);
-        foreach($daniel as $key => $value)
-        {
-            if($value > $value_max){
+        foreach ($daniel as $key => $value) {
+            if ($value > $value_max) {
                 $value_max = $value;
                 $possible_symptom = $key;
             }
         }
-        
-        
+
+
         echo $possible_symptom . "<br />";
-        foreach($data_received as $key => $value){
-            if($value == $possible_symptom){
+        foreach ($data_received as $key => $value) {
+            if ($value == $possible_symptom) {
                 $hold_key = $key;
             }
         }
-       // print_r($data_received);
+        // print_r($data_received);
         //echo $hold_key;
         $data_results = $this->search_return($vararray, 'symptom_name', $data_received[$hold_key]);
 
@@ -113,6 +112,17 @@ class Welcome extends CI_Controller {
                 echo "<tr><td>" . $index . ". </td><td>" . $key['disease_name'] . "</td></tr>";
             }
             echo "</tbody></table>";
+        }
+        foreach ($data_received as $key => $value) {
+            $data_sent['search_id'] = $key;
+            $data_sent['symptom_name'] = $value;
+        
+            $send_to_db = $this->case_Model->frequent_cases($data_sent);
+            if ($send_to_db) {
+                echo "Result Sent";
+            } else {
+                echo "search not complete";
+            }
         }
     }
 
@@ -522,6 +532,59 @@ class Welcome extends CI_Controller {
         echo "</tbody></table>";
     }
 
+    public function case_summary() {
+        $case_summy = $this->case_Model->get_case_summary();
+        $case_summary = json_decode(json_encode($case_summy), true);
+        $values = $case_summary[0]['disease_name'];
+        $size = 0;
+
+        foreach ($case_summary as $key => $value) {
+
+            //$values = $value['disease_name'];
+            if ($value['disease_name'] == $values) {
+                $size += 1;
+
+                $values = $value['disease_name'];
+                $sizes[$value['disease_name']] = $size;
+            } else {
+
+                $size = 0;
+                //echo "<br />".$value['disease_name'];
+                $values = $value['disease_name'];
+            }
+        }
+        return $sizes;
+    }
+
+    public function disease_summary_case() {
+        $param = $this->case_summary();
+
+        foreach ($param as $key => $value) {
+            $size_disease[] = $key;
+        }
+
+        echo json_encode($size_disease);
+    }
+
+    public function disease_count_case() {
+        $param = $this->case_summary();
+        foreach ($param as $key => $value) {
+            $size_disease[] = $value;
+        }
+
+        echo json_encode($size_disease);
+    }
+
+    public function unaccount_symptom() {
+        $result = $this->case_Model->get_unaccounted_symptom();
+        echo json_encode($result);
+    }
+    
+    public function frequent_symptom_searches() {
+        $result =$this->case_Model->frequent_symptom_searches();
+        echo json_encode($result);
+        
+    }
 }
 ?>
     

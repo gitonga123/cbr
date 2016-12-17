@@ -136,6 +136,32 @@ class Case_Model extends CI_Model {
         return $this->db->insert('disease', $data);
     }
 
+    public function get_case_summary() {
+        $query = $this->db->get('disease_case');
+
+        return $query->result();
+    }
+
+    public function get_unaccounted_symptom() {
+        $query = $this->db->get('unaccounted_symptom');
+        
+        return $query->result();
+    }
+
+    public function frequent_cases($param) {
+        if(is_array($param)){
+            return $this->db->insert('frequent_cases', $param);
+        }else{
+            exit();
+        }
+    }
+    
+    public function frequent_symptom_searches() {
+        $query = $this->db->get('frequent_symptom_searches');
+        return $query->result();
+        
+        
+    }
 }
 
 ?>
