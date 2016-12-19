@@ -116,7 +116,7 @@ class Welcome extends CI_Controller {
         foreach ($data_received as $key => $value) {
             $data_sent['search_id'] = $key;
             $data_sent['symptom_name'] = $value;
-        
+
             $send_to_db = $this->case_Model->frequent_cases($data_sent);
             if ($send_to_db) {
                 echo "Result Sent";
@@ -352,7 +352,7 @@ class Welcome extends CI_Controller {
         $data['mobile_number'] = $this->input->post('mobile');
         $data['physical_address'] = $this->input->post('address');
         $data['password'] = md5($this->input->post('password'));
-        $datas['password2'] = md5($this->input->post('password2'));
+        
         print_r($data);
 
         $this->form_validation->set_rules('first_name', 'First Name', 'required');
@@ -360,11 +360,10 @@ class Welcome extends CI_Controller {
         $this->form_validation->set_rules('mobile', 'Mobile Number', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.user_name]');
         $this->form_validation->set_rules('address', 'Physical Address', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|max_length[15]');
-        $this->form_validation->set_rules('password2', 'Password Confirmation', 'trim|required|matches[password]');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[15]');
         if ($this->form_validation->run() == TRUE) {
-
-            $insert = $this->user_model->new_user($data);
+            $insert = TRUE;
+            //$insert = $this->user_model->new_user($data);
             if ($insert) {
                 echo "<div class='alert alert-success'><strong> Account Created Successfully</strong></div>";
             } else {
@@ -553,38 +552,43 @@ class Welcome extends CI_Controller {
                 $values = $value['disease_name'];
             }
         }
-        return $sizes;
-    }
-
-    public function disease_summary_case() {
-        $param = $this->case_summary();
-
-        foreach ($param as $key => $value) {
-            $size_disease[] = $key;
-        }
-
-        echo json_encode($size_disease);
-    }
-
-    public function disease_count_case() {
-        $param = $this->case_summary();
-        foreach ($param as $key => $value) {
-            $size_disease[] = $value;
-        }
-
-        echo json_encode($size_disease);
+        echo json_encode($sizes);
     }
 
     public function unaccount_symptom() {
         $result = $this->case_Model->get_unaccounted_symptom();
-        echo json_encode($result);
-    }
-    
-    public function frequent_symptom_searches() {
-        $result =$this->case_Model->frequent_symptom_searches();
-        echo json_encode($result);
         
+        echo "<table class='table table-responsive table-condensed table-striped table-hover' id='Tabledata'>";
+        echo "<thead><tr><th>Symptom ID</th><th>Symptom Name</th></tr></thead><tbody>";
+        
+        foreach ($result as $key => $value) {
+            echo "<tr><td>{$value->symptom_id}</td><td>{$value->symptom_name}</td>";
+        }
+        echo "<tbody></table>";
+        echo '<script>'
+        . '$(document).ready(function(){'
+                . '$("#Tabledata").DataTable();});'
+                . '</script>';
     }
+
+    public function frequent_symptom_searches() {
+        $result = $this->case_Model->frequent_symptom_searches();
+        $result2 = json_decode(json_encode($result),true);
+       foreach($result2 as $key => $values){
+           $result3[$values['symptom_name']] = $values['dupe_cnt']; 
+       }
+       echo json_encode($result3);
+    }
+
+    public function frequent_symptom() {
+        $result = $this->case_Model->frequent_symptoms();
+        $result1 = json_decode(json_encode($result), true);
+        foreach ($result1 as $key => $value) {
+            $count_result[$value['symptom_name']] = $value['dupe_cnt'];
+        }
+        echo json_encode($count_result);
+    }
+
 }
 ?>
     

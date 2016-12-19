@@ -9,7 +9,8 @@ class Signup extends CI_Controller {
     }
 
     public function index() {
-        $this->load->view('signup');
+        $data['title'] = "Create an Account";
+        $this->load->view('signup',$data);
     }
 
 }

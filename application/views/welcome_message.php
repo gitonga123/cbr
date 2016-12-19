@@ -3,34 +3,7 @@ require_once 'header.php';
 if ($_SESSION['is_logged_in']) {
     ?>
     <script>
-        function show_confirm(act, gotoid) {
 
-            if (act === "edit_symptom") {
-
-                var r = confirm("Do you really want to edit the Symptom?");
-            } else if (act === "edit_disease") {
-
-                var r = confirm("Do you really want to edit the Disease?");
-            } else if (act === "delete_symptom") {
-
-                var r = confirm("Do you really want to edit the Symptom?");
-            } else if (act === "delete_disease") {
-
-                var r = confirm("Do you really want to delete the Disease");
-            } else if (act === "edit_user") {
-                var r = confirm("Do you really want to edit the user?");
-            } else {
-                var r = confirm("Do yo really want to delete the user?");
-            }
-
-            if (r === true) {
-
-                window.location = "index.php/welcome/" + act + "/" + gotoid;
-            }
-            //            function display_name() {
-            //                console.log('Daniel Mutwiri');
-            //            }
-        }
     </script>
     <body class="w3-light-grey" onload="setInterval('updateChats()', 10000)">
 
@@ -79,25 +52,7 @@ if ($_SESSION['is_logged_in']) {
                 <div id="User" class="w3-container w3-white w3-padding-16 myLink">
                     <h3>List of All Users</h3>
                     <table class="table table-bordered">
-                        <tr>
-                            <th scope="col">User ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Mobile</th>
-                            <th scope="col" colspan="2">Action</th>
-                        </tr>
-                        <?php foreach ($users as $details) { ?>
-                            <tr>
-                                <td><?php echo $details->user_id ?></td>
-                                <td><?php echo $details->user_name ?></td>
-                                <td><?php echo $details->email ?></td>
-                                <td><?php echo $details->physical_address ?></td>
-                                <td><?php echo $details->mobile_number ?></td>
-                                <td width="40" align="left"><a href="#" onClick="show_confirm('edit_user',<?php echo $details->user_id; ?>)">Edit</a></td>
-                                <td width="40" align="left" ><a href="#" onClick="show_confirm('delete_user',<?php echo $details->user_id; ?>)">Delete </a></td>
-                            </tr>
-                        <?php } ?>
+
                         <tr>
                             <td colspan="7" align="right"> <button class="btn btn-warning" type="submit" id="new_user">Insert New User</button></td>
                         </tr>		
@@ -186,19 +141,7 @@ if ($_SESSION['is_logged_in']) {
                         </div>
                     </div>
                 </div>
-                <script>
-                    $(document).ready(function () {
-                        $("#new_user").click(function () {
-                            $("#myModal3").modal({backdrop: false});
-                        });
-                        $('form#add_new_user').on('submit', function (form) {
-                            form.preventDefault();
-                            $.post('index.php/welcome/new_user', $('form#add_new_user').serialize(), function (data) {
-                                $('div.user_error').html(data);
-                            });
-                        });
-                    });
-                </script>
+
 
                 <div id="Cases" class="w3-container w3-white w3-padding-16 myLink">
                     <ul class="nav nav-tabs">
@@ -582,8 +525,7 @@ if ($_SESSION['is_logged_in']) {
                                     });
                                 });
                                 $("#btn-input").click(function () {
-                                    //$("#btn").trigger(':reset');
-                                    console.log("Hello");
+                                    $("form#send_message").trigger(':reset');
                                 });
                             });
 
@@ -863,6 +805,7 @@ if ($_SESSION['is_logged_in']) {
                                         <div class="ibox float-e-margins">
                                             <div class="ibox-title">
                                                 <h3>View Reports</h3>
+                                                <div class="reports_areas"></div>
                                                 <div class="ibox-content">
                                                     <div>
                                                         <canvas id="chartArea" height="100"></canvas>
@@ -874,10 +817,10 @@ if ($_SESSION['is_logged_in']) {
                                                     <div class="col-sm-10">
                                                         <select class="form-control m-b" name="account" id="searchReport">
                                                             <option value="">--Select Report--</option>
-                                                            <option value="case_summary">Graphical Case View</option>
-                                                            <option value="case_view">Case Summary</option>
+                                                            <option value="case_view">Graphical Case View</option>
+                                                            <option value="case_summary">Case Summary</option>
                                                             <option value="sytem_user">Summary of System Users</option>
-                                                            <option value="frequently_searched">Frequently Cases</option>                                             
+                                                            <option value="frequently_searched">Frequent Searched Cases</option>                                             
                                                         </select>
                                                     </div>
                                                 </div> 
@@ -1022,6 +965,7 @@ if ($_SESSION['is_logged_in']) {
             $(document).ready(function () {
                 $('#dataTables').DataTable();
             });
+
         </script>
 
     </body>

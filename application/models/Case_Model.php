@@ -144,23 +144,27 @@ class Case_Model extends CI_Model {
 
     public function get_unaccounted_symptom() {
         $query = $this->db->get('unaccounted_symptom');
-        
+
         return $query->result();
     }
 
     public function frequent_cases($param) {
-        if(is_array($param)){
+        if (is_array($param)) {
             return $this->db->insert('frequent_cases', $param);
-        }else{
+        } else {
             exit();
         }
     }
-    
+
     public function frequent_symptom_searches() {
+        $this->db->select('symptom_name,dupe_cnt');
         $query = $this->db->get('frequent_symptom_searches');
         return $query->result();
-        
-        
+    }
+    
+    public function frequent_symptoms() {
+        $query = $this->db->get('frequent_symptom');
+        return $query->result();
     }
 }
 

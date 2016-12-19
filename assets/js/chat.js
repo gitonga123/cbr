@@ -29,7 +29,7 @@ function getStateOfChat() {
         });
     }
 }
-function count(){
+function count() {
     var srvRqst = $.ajax({
         url: 'http://localhost/cbr/welcome/count_inbox',
         data: {},
@@ -105,8 +105,8 @@ function display_name() {
 //        setTimeout(updateChat, 1500);
 //        }
 //}
-   
-    
+
+
 function sendChat(message, nickname) {
     updateChat();
     $.ajax({
