@@ -1,40 +1,39 @@
 $(document).ready(function () {
     $("#search_result_diagnosis").hide();
+    $("#case_summary_view").hide();
 });
 
 function view_graph(data, data2) {
+    $("#case_summaries").show();
+    $("#case_view_graphical").show();
+    $("#case_summary_view").hide();
+    $("#frequent_searched_case").hide();
+    $("#system_users").hide();
     $("#search_result_diagnosis").show();
     var lineData = {
         labels: data2,
         datasets: [
             {
-                label: "Example dataset",
-                fillColor: "rgba(75,192,192,0.4)",
-                strokeColor: "rgba(26,179,148,0.7)",
-                pointColor: "rgba(26,179,148,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(26,179,148,1)",
+                backgroundColor: [
+                    'rgba(255, 255, 255, 255)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)'
+
+                ],
+
                 data: data
             }
         ]
     };
 
     var lineOptions = {
-
-        scaleShowGridLines: true,
-        scaleGridLineColor: "rgba(0,0,0,.05)",
-        scaleGridLineWidth: 1,
-        bezierCurve: true,
-        bezierCurveTension: 0.4,
-        pointDot: true,
-        pointDotRadius: 4,
-        pointDotStrokeWidth: 1,
-        pointHitDetectionRadius: 20,
-        datasetStroke: true,
-        datasetStrokeWidth: 2,
-        datasetFill: true,
         responsive: true,
+        title: {
+            display: true,
+            text: "Likely Disease",
+        },
+
         scales: {
             yAxes: [{
                     scaleLabel: {
@@ -43,6 +42,9 @@ function view_graph(data, data2) {
                     },
                     ticks: {
                         suggestedMin: 0
+                    },
+                    gridLines: {
+                        display: false
                     }
                 }]
         }
@@ -95,8 +97,25 @@ function case_view() {
             labels: disease_lables,
             datasets: [
                 {
-                    label: "Disease Count",
-                    fillColor: "rgba(220,220,220,0.5)",
+                    label: "Symptom Number",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+
                     data: disease_values
                 }
             ]
@@ -111,11 +130,18 @@ function case_view() {
                         },
                         ticks: {
                             suggestedMin: 0
+                        },
+                        gridLines: {
+                            display: false
                         }
                     }]
+            },
+            title: {
+                display: true,
+                text: "Likely Disease",
             }
         };
-        var ctx = document.getElementById("chartArea").getContext("2d");
+        var ctx = document.getElementById("case_view_graphical").getContext("2d");
 
 
         var myBarChat = new Chart(ctx, {
@@ -128,7 +154,11 @@ function case_view() {
 }
 
 function view_all_users() {
-
+    $("#case_summaries").hide();
+    $("#case_view_graphical").hide();
+    $("#case_summary_view").hide();
+    $("#frequent_searched_case").hide();
+    $("#system_users").show();
     var srvRqst = $.ajax({
         url: 'http://localhost/cbr/user/view_all_users',
         data: {},
@@ -140,34 +170,34 @@ function view_all_users() {
     });
 }
 
-function show_confirm(act, gotoid) {
+// function show_confirm(act, gotoid) {
+//         var controller= "";
+//     if (act === "edit_symptom") {
 
-    if (act === "edit_symptom") {
+//         var r = confirm("Do you really want to edit the Symptom?");
+//     } else if (act === "edit_disease") {
+//                 controller= "disease"
+//         var r = confirm("Do you really want to edit the Disease?");
+//     } else if (act === "delete_symptom") {
 
-        var r = confirm("Do you really want to edit the Symptom?");
-    } else if (act === "edit_disease") {
+//         var r = confirm("Do you really want to edit the Symptom?");
+//     } else if (act === "delete_disease") {
 
-        var r = confirm("Do you really want to edit the Disease?");
-    } else if (act === "delete_symptom") {
+//         var r = confirm("Do you really want to delete the Disease");
+//     } else if (act === "edit_user") {
+//         var r = confirm("Do you really want to edit the user?");
+//     } else {
+//         var r = confirm("Do yo really want to delete the user?");
+//     }
 
-        var r = confirm("Do you really want to edit the Symptom?");
-    } else if (act === "delete_disease") {
+//     if (r === true) {
 
-        var r = confirm("Do you really want to delete the Disease");
-    } else if (act === "edit_user") {
-        var r = confirm("Do you really want to edit the user?");
-    } else {
-        var r = confirm("Do yo really want to delete the user?");
-    }
-
-    if (r === true) {
-
-        window.location = "index.php/welcome/" + act + "/" + gotoid;
-    }
-    //            function display_name() {
-    //                console.log('Daniel Mutwiri');
-    //            }
-}
+//         window.location = controller +"/" + act + "/" + gotoid;
+//     }
+//     //            function display_name() {
+//     //                console.log('Daniel Mutwiri');
+//     //            }
+// }
 $(document).ready(function () {
     $("#new_user").click(function () {
         $("#myModal3").modal({backdrop: false});
@@ -188,70 +218,144 @@ function alert_form() {
 }
 
 function case_summary() {
+    $("#case_view_graphical").hide();
+    $("#frequent_searched_case").hide();
+    $("#case_summary_view").show();
+    $("#system_users").hide();
+    var srvRqst = $.ajax({
+        url: 'http://localhost/cbr/welcome/unaccount_symptom',
+        data: {},
+        type: 'post'
+    });
 
-//    var srvRqst = $.ajax({
-//        url: 'http://localhost/cbr/welcome/unaccount_symptom',
-//        data: {},
-//        type: 'post'
-//    });
-//
-//    srvRqst.done(function (response) {
-//        $('div.reports_areas').html(response);
-//    });
-//    var srvRqst = $.ajax({
-//        url: 'http://localhost/cbr/index.php/welcome/frequent_symptom',
-//        data: {},
-//        type: 'post',
-//        datatype: 'json'
-//
-//    }
-//    );
-//    srvRqst.done(function (responses)
-//    {
-//
-//        var responseObj = $.parseJSON(responses);
-//        var disease_lables = Object.keys(responseObj);
-//        var disease_values = Object.keys(responseObj).map(function (k) {
-//            return responseObj[k];
-//        });
-//        var barData = {
-//            labels: disease_lables,
-//            datasets: [
-//                {
-//                    label: "Disease Count",
-//                    fillColor: "rgba(220,220,220,0.5)",
-//                    data: disease_values
-//                }
-//            ]
-//        };
-//
-//        var barOption = {
-//            scales: {
-//                yAxes: [{
-//                        scaleLabel: {
-//                            display: true,
-//                            labelString: 'Symptom Frequency'
-//                        },
-//                        ticks: {
-//                            suggestedMin: 0
-//                        }
-//                    }]
-//            }
-//        };
-//        var ctx = document.getElementById("chartArea").getContext("2d");
-//
-//
-//        var myBarChat = new Chart(ctx, {
-//            type: 'bar',
-//            data: barData,
-//            options: barOption
-//        });
-//    });
+    srvRqst.done(function (response) {
+        $('div.symptom_unaccount').html(response);
+    });
+    var srvRqst = $.ajax({
+        url: 'http://localhost/cbr/index.php/welcome/frequent_symptom',
+        data: {},
+        type: 'post',
+        datatype: 'json'
+
+    }
+    );
+    srvRqst.done(function (responses)
+    {
+
+        var responseObj = $.parseJSON(responses);
+        var disease_lables = Object.keys(responseObj);
+        var disease_values = Object.keys(responseObj).map(function (k) {
+            return responseObj[k];
+        });
+        var barData = {
+            labels: disease_lables,
+            datasets: [
+                {
+                    label: "Number of Times",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                    data: disease_values
+                }
+            ]
+        };
+
+        var barOption = {
+            title: {
+                display: true,
+                text: "Likely Disease",
+            },
+            scales: {
+                yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Symptom Frequency'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        },
+
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                xAxes: [{
+                        barPercentage: 1,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+            }
+        };
+        var ctx = document.getElementById("symptom_frequency").getContext("2d");
+
+
+        var myBarChat = new Chart(ctx, {
+            type: 'bar',
+            data: barData,
+            options: barOption
+        });
+    });
 
 
 }
 
 function frequently_searched() {
+    $("#case_summaries").hide();
+    $("#case_view_graphical").hide();
+    $("#case_summary_view").hide();
+    $("#frequent_searched_case").show();
+    $("#system_users").hide();
     var srvRqst = $.ajax({
         url: 'http://localhost/cbr/index.php/welcome/frequent_symptom_searches',
         data: {},
@@ -273,8 +377,60 @@ function frequently_searched() {
             labels: disease_lables,
             datasets: [
                 {
-                    label: "Disease Count",
-                    fillColor: "rgba(220,220,220,0.5)",
+                    label: "Number of Times",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
                     data: disease_values
                 }
             ]
@@ -289,11 +445,22 @@ function frequently_searched() {
                         },
                         ticks: {
                             suggestedMin: 0
+                        },
+
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                xAxes: [{
+                        barPercentage: 1,
+                        gridLines: {
+                            display: false
                         }
                     }]
+
             }
         };
-        var ctx = document.getElementById("chartArea").getContext("2d");
+        var ctx = document.getElementById("frequent_search").getContext("2d");
 
 
         var myBarChat = new Chart(ctx, {

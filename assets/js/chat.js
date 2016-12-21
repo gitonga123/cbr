@@ -12,6 +12,7 @@ function updateChats() {
     this.check_in_box();
     this.count();
     this.check_out_box();
+    this.check_out_important();
 }
 
 function getStateOfChat() {
@@ -73,6 +74,18 @@ function check_out_box() {
 
     srvRqst.done(function (response) {
         $('div.read_outbox').html(response);
+    });
+}
+
+function check_out_important() {
+    var srvRqst = $.ajax({
+        url: 'http://localhost/cbr/welcome/get_important',
+        data: {},
+        type: 'post'
+    });
+
+    srvRqst.done(function (response) {
+        $('div.read_important').html(response);
     });
 }
 

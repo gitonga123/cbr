@@ -24,6 +24,11 @@ class User_model extends CI_Model {
         return $query->row_array();
     }
 
+    public function get_mail($id) {
+        $query = $this->db->get_where('inbox', array('msg_id' => $id));
+        return $query->row_array();
+    }
+
     public function update_user($data, $id) {
         $this->db->where('users.user_id', $id);
         return $this->db->update('users', $data);
@@ -49,6 +54,11 @@ class User_model extends CI_Model {
 
     public function get_specific_user($username) {
         $query = $this->db->get_where('users', array('user_name' => $username));
+        return $query->row_array();
+    }
+
+    public function get_user_specific($id) {
+        $query = $this->db->get_where('users', array('user_id' => $id));
         return $query->row_array();
     }
 
@@ -93,17 +103,46 @@ class User_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->result_array();
     }
-    
-    public function send_email($data){
-       return $this->db->insert('private_message_send',$data);
+
+    public function send_email($data) {
+        return $this->db->insert('private_message_send', $data);
     }
-    
-    public function get_sent_mail(){
-        $this->db->where('inbox.sender',$_SESSION['user_id']);
+
+    public function get_sent_mail() {
+        $this->db->where('inbox.sender', $_SESSION['user_id']);
         $query = $this->db->get('inbox');
         if ($query->num_rows() > 0) {
             return $query->result_array();
         }
+    }
+
+    public function delete_email($id) {
+        $data = array(
+            'delete_msg' => 'yes'
+        );
+        $this->db->where('private_message_send.msg_id', $id);
+        return $this->db->update('private_message_send', $data);
+    }
+    
+    public function important_email($id) {
+        $data = array(
+            'important' => 'yes'
+        );
+        $this->db->where('private_message_send.msg_id', $id);
+        return $this->db->update('private_message_send', $data);
+    }
+
+    public function insert_file($filename) {
+        $this->db->insert('users', $filename);
+        return $this->db->insert_id();
+    }
+    
+    public function read_email($id){
+        $data = array(
+          'status' => 'yes'  
+        );
+        $this->db->where('private_message_send.msg_id', $id);
+        return $this->db->update('private_message_send', $data);
     }
 
 }

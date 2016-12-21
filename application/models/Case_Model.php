@@ -13,16 +13,20 @@ class Case_Model extends CI_Model {
         parent::__construct();
     }
 
-    public function add_case($data) {
+    public function add_case($data1, $data2) {
+        echo "Disease".$data1;
+        echo "Symptom". $data2 . "<br />";
+        $data = array(
+            'disease_id' => $data1,
+            'symptom_id' => $data2
+        );
         $this->db->select("disease_id, symptom_id");
         $query = $this->db->get("disease_symptom_combination");
         $check_disease = $query->result();
         foreach ($check_disease as $disease) {
             if ($disease->disease_id == $data['disease_id']) {
                 if ($disease->symptom_id == $data['symptom_id']) {
-                    echo "<div class='alert alert-danger'>Case: Already Exitisting</div>";
-
-                    exit();
+                    return FALSE;
                 }
             }
         }
@@ -44,7 +48,13 @@ class Case_Model extends CI_Model {
 
         return $query->result();
     }
-
+    
+   public function get_symptom3() {
+        $this->db->select("symptom_id,symptom_name");
+        $query = $this->db->get("symptom");
+        return $query->result();
+    }
+    
     public function get_symptom2($disease_id) {
         $this->db->select("symptom_name");
         $this->db->where('disease_id', $disease_id);
@@ -123,17 +133,23 @@ class Case_Model extends CI_Model {
     }
 
     public function add_disease($data) {
+        $check = 0;
         $this->db->distinct();
         $this->db->select("disease_name");
         $query = $this->db->get("disease");
         $check_disease = $query->result();
         foreach ($check_disease as $disease) {
             if ($disease->disease_name == $data['disease_name']) {
-                echo "<div class='alert alert-danger'>Error: Disease already in the database</div>";
-                exit();
+                $check = 1;
             }
         }
-        return $this->db->insert('disease', $data);
+        if ($check == 1) {
+            return FALSE;
+        } else {
+
+            return $this->db->insert('disease', $data);
+        }
+        
     }
 
     public function get_case_summary() {
@@ -161,11 +177,12 @@ class Case_Model extends CI_Model {
         $query = $this->db->get('frequent_symptom_searches');
         return $query->result();
     }
-    
+
     public function frequent_symptoms() {
         $query = $this->db->get('frequent_symptom');
         return $query->result();
     }
+
 }
 
 ?>

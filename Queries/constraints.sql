@@ -81,3 +81,22 @@ CREATE VIEW frequent_symptom_searches AS
             INNER JOIN
         count_frequent_search d ON c.search_id = d.search_id
 
+<!--Generel User -->
+create table general_user(
+	user_id int auto_increment not null primary key,
+	first_name varchar(100) not null,
+    surname varchar(100) not null,
+    title varchar(10) not null,
+    user_name varchar(100) not null,
+    gender char(2) not null,
+    mobile_number varchar(50) not null,
+    email varchar(100) not null,
+    dob varchar(15) not null,
+    smoker varchar(100) not null,
+    occupation varchar(100),
+    alergies varchar(100),
+    physical_address varchar(100) not null,
+    password varchar(200) not null,
+    image_path varchar(100) not null,
+    
+)
