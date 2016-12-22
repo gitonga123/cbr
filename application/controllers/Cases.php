@@ -23,7 +23,7 @@ class Cases extends CI_Controller {
             $data_selected1 = $this->input->post('selection1');
             $data_selected2 = $this->input->post('selection2');
             echo $data_selected1 . "</br >";
-            
+
             foreach ($data_selected2 as $key => $value) {
 
                 $case_added = $this->case_Model->add_case($data_selected1, $value);
@@ -46,6 +46,29 @@ class Cases extends CI_Controller {
 
         //$this->load->view('diseaseID',$data);
         echo json_encode(['SYMPTOMS' => $symptoms]);
+    }
+
+    public function active_case() {
+
+        $data = $this->input->post('symptom_id');
+        
+        $return = $this->case_Model->active_case($data);
+        if ($return) {
+            
+        } else {
+            
+        }
+    }
+
+    public function inactive_case() {
+        $data = $this->input->post('symptom_id');
+        
+        $result = $this->case_Model->inactive_case($data);
+        if ($result) {
+            
+        } else {
+            
+        }
     }
 
 }

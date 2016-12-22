@@ -43,7 +43,7 @@ class Search extends CI_Controller {
 
         $data_received = $this->input->post('symptom_search');
         $received_db = $this->case_Model->search_result();
-        $this->learn($data_received);
+
         $json_data = json_encode($received_db);
         $vararray = json_decode($json_data, true);
         $daniel = array();
@@ -90,7 +90,7 @@ class Search extends CI_Controller {
 
             echo "</tbody></table>";
         } else {
-
+            $data_results = $this->search_return($vararray, 'symptom_name', $data_received[0]);
             echo '<table class="table table-hover">';
             echo "<thead><tr><th colspan='2' class='alert alert-danger'>Likely Dieases: Disease Found = " . count($data_results) . "</th></tr>"
             . "<tr><th>No.</th><th>Disease Name</th></tr></thead><tbody>";
@@ -113,6 +113,7 @@ class Search extends CI_Controller {
                 echo "search not complete";
             }
         }
+        $this->learn($data_received);
     }
 
     public function search_return($array, $key, $value) {
@@ -171,9 +172,25 @@ class Search extends CI_Controller {
         $result = json_encode($count);
         return $result;
     }
+
+    public function learn($data_received) {
+        $vararray = $this->case_Model->get_symptom3();
+
+        $holdarray = json_decode(json_encode($vararray), true);
+        $size = count($data_received);
+        for ($i = 0; $i < $size; $i++) {
+            $data_results = $this->search_return($holdarray, 'symptom_name', $data_received[$i]);
+
+            if (count($data_results) == 0) {
+                $this->case_Model->add_symptom_undefined($data_received[$i]);
+            }
+        }
+    }
     
-    public function learn($param){
-       $data = $this->case_Model->get_symptom();
+    public function undefined(){
+        $data['symptom2'] = $this->case_Model->get_symptom4();//Get all symptoms that are undefined
+        
+        $this->load->view('undefined',$data);
     }
 
 }

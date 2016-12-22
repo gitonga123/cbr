@@ -41,7 +41,7 @@ defined('BASEPATH') or exit("No direct script access allowed");
 
         <!-- Header -->
         <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
-            <img class="w3-image" src="/cbr/assets/images/home_page.jpg" alt="Architecture" width="1500" height="700" />
+            <img class="w3-image" src="/cbr/assets/images/home4.png" alt="Architecture" width="1500" height="700" />
             <div class="row" style="margin-top: -30%; margin-bottom: 10%">
                 <div class="col-lg-7">
                     <div class="w3-display-middle w3-margin-top w3-center">
@@ -161,7 +161,7 @@ defined('BASEPATH') or exit("No direct script access allowed");
                                 </div>
                                 <div class="form-group">
                                     <label>Role *</label>
-                                    <select class="form-control m-b  required">
+                                    <select class="form-control m-b  required" name="role">
                                         <option value="">--Select--</option>
                                         <option value="doctor">Doctor</option>
                                         <option value="patient">Patient</option>
@@ -303,7 +303,7 @@ defined('BASEPATH') or exit("No direct script access allowed");
         <footer class="w3-center w3-black w3-padding-16">
             <p><i class="fa fa-user w3-margin-right"></i> <a href="http://www.w3schools.com/w3css/default.asp" title="Daniel Mutwiri" target="_blank" class="w3-hover-text-green">Daniel Mutwiri P15/1477/2013</a></p>
         </footer>
-        <script type="text/javascript" src='/cbr//cbr/assets/js/jquery-1.12.3.js'></script>
+        <script type="text/javascript" src='/cbr/assets/js/jquery-1.12.3.js'></script>
         <script src="/cbr/assets/js/bootstrap.min.js"></script>
         <script src="/cbr/assets/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script src="/cbr/assets/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>

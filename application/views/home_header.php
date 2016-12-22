@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 if ($_SESSION['is_logged_in']) {
+        $image = "/cbr/assets/images/profile_small.jpg";
+        $first_name = $_SESSION['first_name'];
+        $second_name = $_SESSION['surname'];
     ?>
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html lang="en">
@@ -101,20 +104,35 @@ if ($_SESSION['is_logged_in']) {
                                         <a id="active_bar7" aria-expanded="false" role="button" href="#" ><i class="fa fa-home w3-margin-right"></i>Learn More</a>
                                     </li> -->
 
-                                    <ul class="nav navbar-top-links navbar-right" >
-                                        <li class="dropdown">
-                                            <a id="active_bar8" aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user w3-margin-right"></i>Profile <span class="caret"></span></a>
-                                            <ul role="menu" class="dropdown-menu">
-                                                <li>
-                                                    <a href="/cbr/login/logout" id="active_bar9"> 
-                                                        <i class="fa fa-sign-out"></i> Log out
-                                                    </a>
-                                                </li>
+                                    <!--                                    <ul class="nav navbar-top-links navbar-right" >
+                                                                            <li class="dropdown">
+                                                                                <a id="active_bar8" aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user w3-margin-right"></i>Profile <span class="caret"></span></a>
+                                                                                <ul role="menu" class="dropdown-menu">
+                                                                                    <li>
+                                                                                        <a href="/cbr/login/logout" id="active_bar9"> 
+                                                                                            <i class="fa fa-sign-out"></i> Log out
+                                                                                        </a>
+                                                                                    </li>
+                                    
+                                                                                    <li><a href="">View My profile</a></li>
+                                                                                </ul>
+                                                                            </li>
+                                    
+                                                                        </ul>-->
+                                    <ul class="nav navbar-top-links navbar-right"  style="margin-left: 20px">
+                                        <div class="dropdown profile-element"> <span>
+                                                <img alt="image" class="img-circle" src="<?php echo $image;?>" />
+                                            </span>
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                                <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $first_name . "  " .$second_name;?></strong>
+                                                    </span> <span class="text-muted text-xs block"><?php echo $_SESSION['user_category'];?><b class="caret"></b></span> </span> </a>
+                                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                                <li><a href="profile.html">Profile</a></li>
 
-                                                <li><a href="">View My profile</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="/cbr/login/logout">Logout</a></li>
                                             </ul>
-                                        </li>
-
+                                        </div>
                                     </ul>
                                 </ul>
                             </div>

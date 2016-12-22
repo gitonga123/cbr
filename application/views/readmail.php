@@ -104,8 +104,8 @@ if ($_SESSION['is_logged_in']) {
             //            var gy = document.getElementById('active_bar7');
             //            gy.style.color = "#000000";
 
-            var hy = document.getElementById('active_bar8');
-            hy.style.color = "#000000";
+//            var hy = document.getElementById('active_bar8');
+//            hy.style.color = "#000000";
         });
         
     </script>

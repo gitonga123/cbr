@@ -14,8 +14,6 @@ class Case_Model extends CI_Model {
     }
 
     public function add_case($data1, $data2) {
-        echo "Disease".$data1;
-        echo "Symptom". $data2 . "<br />";
         $data = array(
             'disease_id' => $data1,
             'symptom_id' => $data2
@@ -44,17 +42,17 @@ class Case_Model extends CI_Model {
     public function get_symptom() {
         $this->db->distinct();
         $this->db->select("symptom_id,symptom_name");
-        $query = $this->db->get("symptom");
+        $query = $this->db->get("active_symptom");
 
         return $query->result();
     }
-    
-   public function get_symptom3() {
+
+    public function get_symptom3() {
         $this->db->select("symptom_id,symptom_name");
-        $query = $this->db->get("symptom");
+        $query = $this->db->get("active_symptom");
         return $query->result();
     }
-    
+
     public function get_symptom2($disease_id) {
         $this->db->select("symptom_name");
         $this->db->where('disease_id', $disease_id);
@@ -77,13 +75,13 @@ class Case_Model extends CI_Model {
 
     public function symptom_for_search() {
         $this->db->select('symptom_name');
-        $query = $this->db->get('symptom');
+        $query = $this->db->get('active_symptom');
         return $query->result();
     }
 
     public function search_result() {
         $this->db->select('disease_name, symptom_name');
-        $query = $this->db->get('disease_case');
+        $query = $this->db->get('disease_case_true');
         return $query->result();
     }
 
@@ -124,8 +122,7 @@ class Case_Model extends CI_Model {
         $check_symptom = $query->result();
         foreach ($check_symptom as $symptom) {
             if ($symptom->symptom_name == $data['symptom_name']) {
-                echo "Error: Symptom already in the database";
-                exit();
+                return false;
             }
         }
 
@@ -149,7 +146,6 @@ class Case_Model extends CI_Model {
 
             return $this->db->insert('disease', $data);
         }
-        
     }
 
     public function get_case_summary() {
@@ -181,6 +177,44 @@ class Case_Model extends CI_Model {
     public function frequent_symptoms() {
         $query = $this->db->get('frequent_symptom');
         return $query->result();
+    }
+
+    public function add_symptom_undefined($data) {
+        $data1 = array(
+            'symptom_name' => $data,
+            'active' => 0
+        );
+
+        return $this->db->insert('symptom', $data1);
+    }
+
+    public function get_symptom4() {
+        $query = $this->db->get('symptom_undefined');
+        return $query->result();
+    }
+
+    public function active_symptom($id) {
+        $data = array(
+            'active' => 1
+        );
+        $this->db->where('symptom_id', $id);
+        return $this->db->update('symptom', $data);
+    }
+    
+    public function active_case($id){
+        $data = array(
+            'active' => 1
+        );
+        $this->db->where('cases_id', $id);
+        return $this->db->update('disease_symptom_combination', $data);
+    }
+    
+    public function inactive_case($id){
+        $data = array(
+            'active' => 0
+        );
+        $this->db->where('cases_id', $id);
+        return $this->db->update('disease_symptom_combination', $data);
     }
 
 }

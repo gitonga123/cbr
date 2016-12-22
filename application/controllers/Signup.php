@@ -49,7 +49,7 @@ class Signup extends CI_Controller {
             $data['alergies'] = $this->input->post('alergies');
             $data['physical_address'] = $this->input->post('address');
             $data['password'] = md5($this->input->post('password'));
-
+            $data['user_category'] = $this->input->post('role');
 
             $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
 

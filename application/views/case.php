@@ -2,7 +2,7 @@
 include 'home_header.php';
 if ($_SESSION['is_logged_in']) {
     ?>
-    <div id="Cases" class="w3-container w3-white w3-padding-16"  style="margin-top: 2%;">
+    <div id="Cases" class="w3-container w3-white w3-padding-16"  style="margin-top: 1%;">
         <h3>Cases: Disease and Symptom Combination</h3>
         <button type="button" class="btn btn-info btn-mini" id="myBtn2"><i class="fa fa-bookmark w3-margin-right"></i>Create A Case</button>
         <span style="margin-left: 20px;"></span>
@@ -18,6 +18,7 @@ if ($_SESSION['is_logged_in']) {
             echo " <p class='alert alert-info'> {$error_message}</p>";
         }
         ?>
+        <div class="activation_case"></div>
         <div>
             <?php
             echo "<table class='table table-hover' id='table_case'>
@@ -26,6 +27,8 @@ if ($_SESSION['is_logged_in']) {
                             <th>Case Number</th>
                              <th>Disease Name</th>
                             <th>Symptom Name</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                   <tbody>";
@@ -43,7 +46,7 @@ if ($_SESSION['is_logged_in']) {
 
                 foreach ($symptom as $value_symptom) {
                     if ($value_cases->disease_id == $value_symptom->disease_id) {
-                        echo "<td>{$value_symptom->symptom_name}</td></tr>";
+                        echo "<td>{$value_symptom->symptom_name}</td><td><a href='#' class='btn btn-info bt-xs' onclick='actives({$value_symptom->cases_id})'>Tick</td><td><a href='#' class='btn btn-danger bt-xs' onclick='deletes()'>Untick</i></td></tr>";
                     }
                 }
             }
@@ -155,6 +158,7 @@ if ($_SESSION['is_logged_in']) {
 
 
     </div>
+<div style="margin-top: 1%;"></div>
     <?php
     require_once 'home_footer.php';
     ?>
@@ -214,8 +218,8 @@ if ($_SESSION['is_logged_in']) {
             //            var gy = document.getElementById('active_bar7');
             //            gy.style.color = "#000000";
 
-            var hy = document.getElementById('active_bar8');
-            hy.style.color = "#000000";
+    //            var hy = document.getElementById('active_bar8');
+    //            hy.style.color = "#000000";
         });
 
         $(document).ready(function () {
@@ -229,7 +233,35 @@ if ($_SESSION['is_logged_in']) {
         $("#editCaseBtn").click(function () {
             $("#editCase").modal({backdrop: false});
         });
-        
+
+        function deletes(data) {
+            srvRqst = $.ajax({
+                url: 'http://localhost/cbr/cases/inactive_case',
+                type: 'post',
+                data: {symptom_id: data},
+                datatype: {},
+
+            });
+            srvRqst.done(function (response) {
+                var html = '<p class="alert alert-danger">Symptom Modified</p>';
+                $('div.activation_case').html(html);
+            });
+        }
+
+        function actives(data) {
+            srvRqst = $.ajax({
+                url: 'http://localhost/cbr/cases/active_case',
+                type: 'post',
+                data: {symptom_id: data},
+                datatype: {},
+
+            });
+            srvRqst.done(function (response) {
+                var html = '<p class="alert alert-danger">Symptom Modified</p>';
+                $('div.activation_case').html(html);
+            });
+        }
+
     </script>
 
     </body>

@@ -15,7 +15,7 @@ if ($_SESSION['is_logged_in']) {
 
         </div>
 
-        <form class="form form-horizontal" id="search_form">
+        <form class="form form-horizontal" id="disease_search_symptom">
 
             <div class="form-group" id="dynamic_search_field">
                 <label class="control-label col-sm-2" for="symptom">Symptom:</label>
@@ -66,8 +66,8 @@ if ($_SESSION['is_logged_in']) {
     //            var fy = document.getElementById('active_bar7');
     //            fy.style.color = "#000000";
 
-            var gy = document.getElementById('active_bar8');
-            gy.style.color = "#000000";
+//            var gy = document.getElementById('active_bar8');
+//            gy.style.color = "#000000";
     //
     //            var hy = document.getElementById('active_bar8');
     //            hy.style.color = "#000000";
@@ -139,13 +139,13 @@ if ($_SESSION['is_logged_in']) {
             });
         });
         $(document).ready(function () {
-            $('form#search_form').on('submit', function (form) {
+            $('form#disease_search_symptom').on('submit', function (form) {
                 form.preventDefault();
-                $.post('search/search_result', $('form#search_form').serialize(), function (data) {
+                $.post('search/search_result', $('form#disease_search_symptom').serialize(), function (data) {
                     $('div.search_result').html(data);
                 });
             });
-            $("form#search_form").click(function () {
+            $("form#disease_search_symptom").click(function () {
                 $("#search_result_diagnosis").hide();
             });
         });

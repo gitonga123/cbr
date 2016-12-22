@@ -174,8 +174,8 @@ if ($_SESSION['is_logged_in']) {
             //            var gy = document.getElementById('active_bar7');
             //            gy.style.color = "#000000";
 
-            var hy = document.getElementById('active_bar8');
-            hy.style.color = "#000000";
+//            var hy = document.getElementById('active_bar8');
+//            hy.style.color = "#000000";
         });
 
         $(document).ready(function () {
@@ -254,7 +254,6 @@ if ($_SESSION['is_logged_in']) {
 
         };
 
-        ;
         function openCity(evt, cityName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");

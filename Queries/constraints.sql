@@ -100,3 +100,8 @@ create table general_user(
     image_path varchar(100) not null,
     
 )
+create table symptom_new(
+	symptom_id int auto_increment not null primary key,
+    symptom_name varchar(100) not null,
+    symptom_description varchar(150)
+)

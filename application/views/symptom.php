@@ -5,6 +5,8 @@ if ($_SESSION['is_logged_in']) {
     <div id="Cases" class="w3-container w3-white w3-padding-16"  style="margin-top: 2%;">
         <h3>Cases: List of All Respiratory Symptom</h3>
         <div><button class="btn btn-success btn-mini" id="symptomBtn"><i class="fa fa-bell-o w3-margin-right"></i>Add A New Symptom</button>
+            <span style="margin-left: 1%;"></span>
+            <a href="/cbr/search/undefined" class="btn btn-success btn-mini" i><i class="fa fa-newspaper-o w3-margin-right"></i>View Undefined Symptoms</a>
         </div> 
         <span>
             <?php
@@ -110,8 +112,8 @@ if ($_SESSION['is_logged_in']) {
             //            var gy = document.getElementById('active_bar7');
             //            gy.style.color = "#000000";
 
-            var hy = document.getElementById('active_bar8');
-            hy.style.color = "#000000";
+//            var hy = document.getElementById('active_bar8');
+//            hy.style.color = "#000000";
         });
         $(document).ready(function () {
             $('#dataTables').DataTable();

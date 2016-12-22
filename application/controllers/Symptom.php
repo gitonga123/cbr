@@ -27,7 +27,6 @@ class Symptom extends CI_Controller {
         $id = $this->input->get('id');
         $data['symptom'] = $this->case_Model->get_symptom_by_id($id);
         $this->load->view('edit_symptom', $data);
-        
     }
 
     public function update_symptom() {
@@ -55,22 +54,45 @@ class Symptom extends CI_Controller {
         } else {
             $data['error_message'] = "New Symptom can not be added";
         }
-        
+
         $data['symptom2'] = $this->list_symptom();
         $this->load->view('symptom', $data);
     }
-     public function delete_symptom() {
-         $id = $this->input->get('id');
-         $data['error_message'] = "";
+
+    public function delete_symptom() {
+        $id = $this->input->get('id');
+        $data['error_message'] = "";
         $result = $this->case_Model->delete_symptom($id);
         if ($result) {
             $data['error_message'] = "Symptom Deleted";
         } else {
             $data['error_message'] = "Symptom Can not be Deleted";
         }
-        
+
         $data['symptom2'] = $this->list_symptom();
         $this->load->view('symptom', $data);
+    }
+
+    public function active_symptom() {
+
+        $data = $this->input->post('symptom_id');
+
+        $return = $this->case_Model->active_symptom($data);
+        if ($return) {
+            
+        } else {
+            
+        }
+    }
+
+    public function delete_symptoms() {
+        $data = $this->input->post('symptom_id');
+        $result = $this->case_Model->delete_symptom($data);
+        if ($result) {
+            
+        } else {
+            
+        }
     }
 
 }

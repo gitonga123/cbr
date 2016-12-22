@@ -14,11 +14,6 @@
 <script type="text/javascript" src="/cbr/assets/admin/js/plugins/chartJs/Chart.min.js"></script>
 <script type="text/javascript" src="/cbr/assets/admin/js/demo/chartjs-demo.js"></script>
 
-<!-- Flot -->
-<script src="/cbr/assets/admin/js/plugins/flot/jquery.flot.js"></script>
-<script src="/cbr/assets/admin/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="/cbr/assets/admin/js/plugins/flot/jquery.flot.resize.js"></script>
-
 <script src="/cbr/assets/admin/js/plugins/toastr/toastr.min.js"></script>
 
 <div class="footer">
