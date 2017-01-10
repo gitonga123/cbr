@@ -35,7 +35,8 @@ class Login extends CI_Controller {
             $online = $this->user_model->store_session($login_id);
 
             if ($online) {
-                redirect('welcome');
+                
+               redirect('welcome');
             } else {
                 echo "Data can not be added";
             }
@@ -47,11 +48,15 @@ class Login extends CI_Controller {
     }
 
     public function logout() {
-        $delete = $this->user_model->destroy_session($_SESSION['user_id']);
+         $this->user_model->destroy_session($_SESSION['user_id']);
+         $user_data = $this->user_model->get_specific_user($_SESSION['user_name']);
+         $user_data['is_logged_in'] = true;
+         $delete = $this->user_model->get_all_users($user_data);
         if ($delete) {
-            $this->session->unset_userdata('is_logged_in');
+           $this->session->unset_userdata('is_logged_in');
             session_destroy();
-            redirect('login', 'refresh');
+            
+            redirect('login');
         } else {
             echo "Session can be destroyed";
         }

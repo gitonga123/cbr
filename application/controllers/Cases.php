@@ -17,6 +17,8 @@ class Cases extends CI_Controller {
         $data['symptom'] = $this->case_Model->get_all_symptoms();
         $data['disease2'] = $this->case_Model->get_disease();
         $data['symptom2'] = $this->case_Model->get_symptom();
+        $number = $this->case_Model->get_all_symptoms();
+        $data['number'] = count($number);
         $data['error_message'] = "";
 
         if (isset($_POST['selection1']) && isset($_POST['selection2'])) {
@@ -51,24 +53,22 @@ class Cases extends CI_Controller {
     public function active_case() {
 
         $data = $this->input->post('symptom_id');
-        
-        $return = $this->case_Model->active_case($data);
-        if ($return) {
-            
-        } else {
-            
-        }
+
+        $this->case_Model->active_case($data);
     }
 
     public function inactive_case() {
         $data = $this->input->post('symptom_id');
-        
-        $result = $this->case_Model->inactive_case($data);
-        if ($result) {
-            
-        } else {
-            
-        }
+
+        $this->case_Model->inactive_case($data);
+    }
+
+    public function diactivate_all() {
+        $this->case_Model->diactivate_all();
+    }
+
+    public function activate_all() {
+        $this->case_Model->activate_all();
     }
 
 }

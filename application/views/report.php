@@ -38,7 +38,7 @@ if ($_SESSION['is_logged_in']) {
 
                         <div class="ibox-content">
                             <div class="case_view_graphical">
-                                <canvas id="case_view_graphical" height="100"></canvas>
+                                <canvas id="case_view_graphical" height="150px"></canvas>
                             </div>
 
                             <div class="row" id="case_summary_view">
@@ -51,7 +51,7 @@ if ($_SESSION['is_logged_in']) {
                                 <div class="col-log-12">
                                     <h3>Symptom Frequency</h3>
                                     <div class="symptom_frequency">
-                                        <canvas id="symptom_frequency" height="100"></canvas>
+                                        <canvas id="symptom_frequency" height="150px"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@ if ($_SESSION['is_logged_in']) {
                         <div class="col-lg-12">
                             <div class="ibox-content">
                                 <div class="frequent_search">
-                                    <canvas id="frequent_search" height="100"></canvas>
+                                    <canvas id="frequent_search" height="150px"></canvas>
                                 </div>
                             </div>
                         </div>

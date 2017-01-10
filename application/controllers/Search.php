@@ -73,6 +73,7 @@ class Search extends CI_Controller {
 
             echo '<table class="table table-hover">';
 
+            //multi_symptom_search (results of symptom search,$search base,$data to search)
             $multiple_data = $this->multi_symptom_search($data_results, $vararray, $data_received);
             $result_count = array_count_values($multiple_data);
             arsort($result_count);

@@ -67,9 +67,9 @@ class Disease extends CI_Controller {
                 $data['error_message'] = "Disease Could Not be add in the Case Memory";
             }
         }
-        $data['disease2'] = $this->$this->case_Model->get_disease();
+        //$data['disease2'] = $this->$this->case_Model->get_disease();
         
-        $this->load->view('disease', $data);
+        $this->index();
     }
 
 }

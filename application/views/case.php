@@ -2,15 +2,33 @@
 include 'home_header.php';
 if ($_SESSION['is_logged_in']) {
     ?>
+    <style type="text/css">
+        .loader{
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-right: 5px solid green;
+            border-left: 5px solid red; 
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 2s linear infinite;
+
+        }
+        @keyframes spin{
+            0% { transform: rotate(0deg); }
+            100% {transform: rotate(360deg);}
+        }
+    </style>
     <div id="Cases" class="w3-container w3-white w3-padding-16"  style="margin-top: 1%;">
         <h3>Cases: Disease and Symptom Combination</h3>
         <button type="button" class="btn btn-info btn-mini" id="myBtn2"><i class="fa fa-bookmark w3-margin-right"></i>Create A Case</button>
         <span style="margin-left: 20px;"></span>
 
-        <button type="button" class="btn btn-info btn-mini" id="editCaseBtn"><i class="fa fa-edit w3-margin-right"></i>Edit a Case</button>     
+        <a  class="btn btn-info btn-mini" href="#" onclick="activate_all()"><i class="fa fa-toggle-on w3-margin-right">Activate All</i></a>     
         <span style="margin-left: -20px;">
 
         </span> 
+        <a  class="btn btn-warning btn-mini" href="#" onclick="diactivate_all()"><i class="fa fa-toggle-on w3-margin-right">Diactivate All</i></a> 
         <?php
         if (empty($error_message) || $error_message = "Nothing to insert") {
             
@@ -18,6 +36,9 @@ if ($_SESSION['is_logged_in']) {
             echo " <p class='alert alert-info'> {$error_message}</p>";
         }
         ?>
+        <div class="loader">
+
+        </div>
         <div class="activation_case"></div>
         <div>
             <?php
@@ -46,7 +67,11 @@ if ($_SESSION['is_logged_in']) {
 
                 foreach ($symptom as $value_symptom) {
                     if ($value_cases->disease_id == $value_symptom->disease_id) {
-                        echo "<td>{$value_symptom->symptom_name}</td><td><a href='#' class='btn btn-info bt-xs' onclick='actives({$value_symptom->cases_id})'>Tick</td><td><a href='#' class='btn btn-danger bt-xs' onclick='deletes()'>Untick</i></td></tr>";
+                        if ($value_symptom->active) {
+                            echo "<td>{$value_symptom->symptom_name}</td><td id='thumbs_up'><a href='#' class='btn btn-danger bt-xs' onclick='deletes({$value_symptom->cases_id})'> <i class='fa fa-thumbs-o-down'></i></td></tr>";
+                        } else {
+                            echo "<td>{$value_symptom->symptom_name}</td><td id='thumbs_down'><a href='#' class='btn btn-info bt-xs' onclick='actives({$value_symptom->cases_id})'><i class='fa fa-thumbs-up'></i></td></tr>";
+                        }
                     }
                 }
             }
@@ -59,7 +84,7 @@ if ($_SESSION['is_logged_in']) {
         <div class="modal fade" id="myModal2" role="dialog">
             <div class="modal-dialog modal-lg">
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content" >
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">×</button>
                         <h4 class="modal-title">Create A Case: Select one Disease and Multiple Symptoms</h4>
@@ -158,7 +183,7 @@ if ($_SESSION['is_logged_in']) {
 
 
     </div>
-<div style="margin-top: 1%;"></div>
+    <div style="padding-top: 10%;"></div>
     <?php
     require_once 'home_footer.php';
     ?>
@@ -190,6 +215,7 @@ if ($_SESSION['is_logged_in']) {
         });
 
         $(document).ready(function () {
+            $('.loader').hide();
             var x = document.getElementById('case');
             x.className = 'w3-red';
             var y = document.getElementById('active_bar3');
@@ -243,8 +269,9 @@ if ($_SESSION['is_logged_in']) {
 
             });
             srvRqst.done(function (response) {
-                var html = '<p class="alert alert-danger">Symptom Modified</p>';
-                $('div.activation_case').html(html);
+                //var html = '<p class="alert alert-danger">Symptom Modified</p>';
+                $('div.activation_case').html(response);
+                $('#cbr_system').load('/cbr/cases');
             });
         }
 
@@ -257,8 +284,43 @@ if ($_SESSION['is_logged_in']) {
 
             });
             srvRqst.done(function (response) {
-                var html = '<p class="alert alert-danger">Symptom Modified</p>';
-                $('div.activation_case').html(html);
+                // var html = '<p class="alert alert-danger">Symptom Modified</p>';
+                $('div.activation_case').html(response);
+                $('#cbr_system').load('/cbr/cases');
+            });
+        }
+
+        function diactivate_all() {
+            $('.loader').show();
+            var srvRqst = $.ajax({
+                url: 'http://localhost/cbr/cases/diactivate_all',
+                data: {},
+                type: 'post',
+                datatype: 'json'
+
+            }
+            );
+            srvRqst.done(function (response) {
+                // var html = '<p class="alert alert-danger">Symptom Modified</p>';
+                $('div.activation_case').html(response);
+                $('#cbr_system').load('/cbr/cases');
+            });
+        }
+
+        function activate_all() {
+            $('.loader').show();
+            var srvRqst = $.ajax({
+                url: 'http://localhost/cbr/cases/activate_all',
+                data: {},
+                type: 'post',
+                datatype: 'json'
+
+            }
+            );
+            srvRqst.done(function (response) {
+                // var html = '<p class="alert alert-danger">Symptom Modified</p>';
+                $('div.activation_case').html(response);
+                $('#cbr_system').load('/cbr/cases');
             });
         }
 

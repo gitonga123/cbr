@@ -42,7 +42,7 @@ class Case_Model extends CI_Model {
     public function get_symptom() {
         $this->db->distinct();
         $this->db->select("symptom_id,symptom_name");
-        $query = $this->db->get("active_symptom");
+        $query = $this->db->get("symptom");
 
         return $query->result();
     }
@@ -56,7 +56,7 @@ class Case_Model extends CI_Model {
     public function get_symptom2($disease_id) {
         $this->db->select("symptom_name");
         $this->db->where('disease_id', $disease_id);
-        $query = $this->db->get("disease_case");
+        $query = $this->db->get("disease_case_true");
         return $query->result();
     }
 
@@ -68,7 +68,7 @@ class Case_Model extends CI_Model {
     }
 
     public function get_all_symptoms() {
-        $this->db->select('cases_id,symptom_name,disease_id,symptom_id');
+        $this->db->select('cases_id,symptom_name,disease_id,symptom_id,active');
         $query = $this->db->get("disease_case");
         return $query->result();
     }
@@ -96,7 +96,9 @@ class Case_Model extends CI_Model {
     }
 
     public function delete_disease($id) {
+
         $this->db->where('disease.disease_id', $id);
+
         return $this->db->delete('disease');
     }
 
@@ -200,21 +202,72 @@ class Case_Model extends CI_Model {
         $this->db->where('symptom_id', $id);
         return $this->db->update('symptom', $data);
     }
-    
-    public function active_case($id){
+
+    public function active_case($id) {
         $data = array(
             'active' => 1
         );
-        $this->db->where('cases_id', $id);
-        return $this->db->update('disease_symptom_combination', $data);
+         $this->db->where('cases_id', $id);
+        $result = $this->db->update('disease_symptom_combination', $data);
+        if ($result) {
+            echo "Case With Member {$id} Activated";
+        } else {
+            echo "Case with Member {$id} can not be activated at the moment";
+        }
+
     }
-    
-    public function inactive_case($id){
+
+    public function inactive_case($id) {
         $data = array(
             'active' => 0
         );
         $this->db->where('cases_id', $id);
-        return $this->db->update('disease_symptom_combination', $data);
+        $result = $this->db->update('disease_symptom_combination', $data);
+        if ($result) {
+            echo "Case Member {$id} Diactivated";
+        } else {
+            echo "Case with Member {$d} Could Not be diactevated at the moment";
+        }
+    }
+
+    public function diactivate_all() {
+        $query = $this->db->get('disease_symptom_combination');
+
+        $result = $query->result();
+        $data = array(
+            'active' => 0
+        );
+        foreach ($result as $key => $value) {
+            $this->db->where('cases_id', $value->cases_id);
+            $hold[] = $this->db->update('disease_symptom_combination', $data);
+        }
+        if (count($hold) == count($result)) {
+            echo "<p class='alert alert-warning'>All Cases Di-Activated</p>";
+            echo "<script>"
+            . "$('.loader').hide();"
+            . "</script>";
+        }
+    }
+
+    public function activate_all() {
+        $query = $this->db->get('disease_symptom_combination');
+        $hold = 0;
+        $result = $query->result();
+        $data = array(
+            'active' => 1
+        );
+        foreach ($result as $key => $value) {
+            $this->db->where('cases_id', $value->cases_id);
+            $hold += $this->db->update('disease_symptom_combination', $data);
+        }
+        if ($hold == count($result)) {
+            echo "<p class='alert alert-info'>All Cases Activated</p>";
+            echo "<script>"
+            . "$('.loader').hide();"
+            . "</script>";
+        } else {
+            
+        }
     }
 
 }

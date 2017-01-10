@@ -31,7 +31,7 @@ if ($_SESSION['is_logged_in']) {
                             <td><?php echo $value_cases->disease_name; ?></td>
 
                             <td align="left"><a href="/cbr/disease/edit_disease?id=<?php echo $value_cases->disease_id; ?>">Edit</a></td>
-                            <td align="left" ><a href="/cbr/disease/delete_disease?id=<?php echo $value_cases->disease_id; ?>">Delete </a></td>
+                            <td align="left" ><a href="#">Delete </a></td>
                         </tr>
 
                     <?php }
@@ -50,7 +50,7 @@ if ($_SESSION['is_logged_in']) {
 
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="disease/submissiond" class="form-horizontal" id="new_disease">
+                        <form method="post" action="/cbr/disease/submissiond" class="form-horizontal" id="new_disease">
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="disease">Disease:</label>
                                 <div class="col-sm-10">

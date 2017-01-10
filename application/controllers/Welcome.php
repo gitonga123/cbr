@@ -14,7 +14,7 @@ class Welcome extends CI_Controller {
 
     public function index() {
         $data['users'] = $this->all_users();
-
+        $data['title'] = "CBR| Home Page";
         $data['disease2'] = $this->list_disease();
 
         $this->load->view('welcome_message', $data);
@@ -197,8 +197,8 @@ class Welcome extends CI_Controller {
                         <td class="check-mail">
                             <input type="checkbox" class="i-checks">
                         </td>
-                        <td class="mail-ontact"><a href="/cbr/welcome/read_mail?id={$value["msg_id"]}">' . $value['whole_name'] . '</a></td>
-                        <td class="mail-subject"><a href="/cbr/welcome/read_mail?id={$value["msg_id"]}">' . $value['title'] . '</a></td>
+                        <td class="mail-ontact"><a href="/cbr/welcome/read_mail?id=' . $value['msg_id'] .'">' . $value['whole_name'] . '</a></td>
+                        <td class="mail-subject"><a href="/cbr/welcome/read_mail?id='. $value['msg_id'] .'">'  . $value['title'] . '</a></td>
                         <td class=""></td>
                         <td class="text-right mail-date">' . $value['timestamp'] . '</td>
                     </tr>';
